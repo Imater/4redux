@@ -1,0 +1,8 @@
+--ignore-dir=build
+--ignore-dir=assets
+--ignore-dir=node_modules
+--ignore-dir=dist
+--ignore-dir=upload
+--ignore-dir=db
+--ignore-file=is:webpack-assets.json
+--color

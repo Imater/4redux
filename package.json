@@ -1,0 +1,246 @@
+{
+  "name": "4redux",
+  "description": "Big destribution store",
+  "author": "CSSSR <sales@csssr.io> (https://github.com/CSSSR)",
+  "private": true,
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CSSSR/4redux"
+  },
+  "homepage": "http://4redux.ru/",
+  "keywords": [
+    "react",
+    "isomorphic",
+    "universal",
+    "webpack",
+    "express",
+    "hot",
+    "react-hot-reloader",
+    "redux",
+    "babel"
+  ],
+  "main": "bin/server.js",
+  "scripts": {
+    "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
+    "start-prod": "better-npm-run start-prod",
+    "start-prod-api": "better-npm-run start-prod-api",
+    "build": "better-npm-run build",
+    "lint": "eslint -c .eslintrc src api --ext js,jsx",
+    "lint-fix": "eslint -c .eslintrc src api --ext js,jsx --fix",
+    "start-dev": "better-npm-run start-dev",
+    "start-dev-render-on-client": "better-npm-run start-dev-render-on-client",
+    "start-dev-api": "better-npm-run start-dev-api",
+    "watch-client": "better-npm-run watch-client",
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
+    "dev-render-on-client": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\" \"npm run start-dev-api\"",
+    "test": "better-npm-run test",
+    "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register",
+    "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register --watch"
+  },
+  "betterScripts": {
+    "start-prod": {
+      "command": "node --harmony ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "production",
+        "PORT": 8080,
+        "APIPORT": 3031
+      }
+    },
+    "start-prod-api": {
+      "command": "node --harmony ./bin/api.js",
+      "env": {
+        "NODE_PATH": "./api",
+        "NODE_ENV": "production",
+        "GITHUB_CLIENT_ID": "078c91071605c49f3293",
+        "GITHUB_CLIENT_SECRET": "da28a391c4c5313dd786287608a7b25bb12666c1",
+        "APIPORT": 3031
+      }
+    },
+    "start-dev": {
+      "command": "node ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "development",
+        "PORT": 3000,
+        "APIPORT": 3031
+      }
+    },
+    "start-dev-render-on-client": {
+      "command": "node ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "__DISABLE_SSR__": true,
+        "NODE_ENV": "development",
+        "PORT": 3000,
+        "APIPORT": 3031
+      }
+    },
+    "start-dev-api": {
+      "command": "node ./bin/api.js",
+      "env": {
+        "NODE_PATH": "./api",
+        "NODE_ENV": "development",
+        "APIPORT": 3031,
+        "GITHUB_CLIENT_ID": "078c91071605c49f3293",
+        "GITHUB_CLIENT_SECRET": "da28a391c4c5313dd786287608a7b25bb12666c1"
+      }
+    },
+    "watch-client": {
+      "command": "node ./bin/webpack.js",
+      "env": {
+        "UV_THREADPOOL_SIZE": 100,
+        "NODE_PATH": "./src/"
+      }
+    },
+    "build": {
+      "command": "webpack --color --display-error-details --config webpack/prod.config.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "test": {
+      "command": "karma start",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  },
+  "dependencies": {
+    "axios": "^0.11.0",
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-react-display-name": "^6.3.13",
+    "babel-plugin-transform-runtime": "^6.3.13",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "babel-runtime": "^6.3.19",
+    "body-parser": "^1.14.1",
+    "classnames": "^2.2.3",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.2",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "fantasy-combinators": "0.0.1",
+    "file-loader": "^0.8.5",
+    "highlight.js": "^9.2.0",
+    "hoist-non-react-statics": "^1.0.3",
+    "http-proxy": "^1.12.0",
+    "invariant": "^2.2.0",
+    "isomorphic-fetch": "^2.2.1",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "local-storage": "^1.4.2",
+    "lru-memoize": "^1.0.0",
+    "map-props": "^1.0.0",
+    "markdown-react-js": "^0.3.0",
+    "marked": "^0.3.5",
+    "method-override": "^2.3.5",
+    "multireducer": "^2.0.0",
+    "passport": "^0.3.2",
+    "passport-github2": "^0.1.9",
+    "piping": "^0.3.0",
+    "pretty-error": "^1.2.0",
+    "promise-waterfall": "^0.1.0",
+    "pure-render-decorator": "^0.2.0",
+    "querystring": "^0.2.0",
+    "ramda": "^0.21.0",
+    "raw-loader": "^0.5.1",
+    "react": "^0.14.2",
+    "react-addons-perf": "^0.14.7",
+    "react-bootstrap": "^0.28.1",
+    "react-cookie": "^0.4.6",
+    "react-css-modules": "^3.7.6",
+    "react-dom": "^0.14.1",
+    "react-helmet": "^2.2.0",
+    "react-inline-css": "^2.0.0",
+    "react-redux": "^4.0.0",
+    "react-router": "2.0.0",
+    "react-router-bootstrap": "^0.20.1",
+    "react-router-redux": "^3.0.0",
+    "react-scroll": "^1.0.15",
+    "react-select": "^1.0.0-beta13",
+    "react-text-truncate": "^0.6.2",
+    "redux": "^3.5.2",
+    "redux-act": "^0.4.0",
+    "redux-actions": "^0.9.1",
+    "redux-async-connect": "^1.0.0-rc4",
+    "redux-form": "^3.1.7",
+    "redux-loop": "^2.1.1",
+    "scroll-behavior": "^0.3.2",
+    "serialize-javascript": "^1.1.2",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7",
+    "superagent": "^1.8.3",
+    "url-loader": "^0.5.7",
+    "urlencode": "^1.1.0",
+    "warning": "^2.1.0",
+    "webpack-isomorphic-tools": "^2.2.18"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "babel-eslint": "^6.1.0",
+    "babel-plugin-__coverage__": "^11.0.0",
+    "babel-plugin-react-transform": "^2.0.0",
+    "babel-plugin-typecheck": "^3.6.0",
+    "better-npm-run": "^0.0.4",
+    "chai": "^3.3.0",
+    "clean-webpack-plugin": "^0.1.6",
+    "concurrently": "^0.1.1",
+    "css-loader": "^0.23.1",
+    "enzyme": "^2.3.0",
+    "eslint": "2.13.1",
+    "eslint-config-airbnb": "9.0.1",
+    "eslint-import-resolver-webpack": "^0.2.0",
+    "eslint-loader": "^1.0.0",
+    "eslint-plugin-import": "^1.3.0",
+    "eslint-plugin-jsx-a11y": "^1.5.3",
+    "eslint-plugin-react": "^5.2.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "font-awesome": "^4.4.0",
+    "font-awesome-webpack": "0.0.4",
+    "json-loader": "^0.5.4",
+    "karma": "^0.13.10",
+    "karma-chai": "^0.1.0",
+    "karma-cli": "^0.1.1",
+    "karma-coverage": "^1.0.0",
+    "karma-istanbul-reporter": "0.0.1",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
+    "node-sass": "^3.4.2",
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1",
+    "react-a11y": "^0.2.6",
+    "react-addons-test-utils": "^0.14.0",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "redbox-react": "^1.1.1",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "sass-loader": "^3.1.2",
+    "sinon": "^1.17.2",
+    "strip-loader": "^0.1.0",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.2",
+    "stylus-loader": "^2.1.1",
+    "timekeeper": "0.0.5",
+    "webpack": "^2.1.0-beta.14",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.5.0"
+  },
+  "engines": {
+    "node": "5.6.0"
+  }
+}
