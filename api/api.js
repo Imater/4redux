@@ -1,12 +1,11 @@
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
-import { mapUrl } from 'utils/url.js';
 import methodOverride from 'method-override';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import SocketIo from 'socket.io';
-import passport from 'passport';
+import { mapUrl } from './utils/url';
 import * as actions from './actions/index';
 import config from '../src/config';
 
@@ -28,9 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(session({ secret: 'keyboard', resave: false, saveUninitialized: false }));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use((req, res) => {
   const splittedUrlPath = req.url.split('?')[0].split('/').slice(1);

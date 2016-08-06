@@ -1,8 +1,8 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import App from 'containers/App';
-import Demo from 'containers/Demo';
-import NotFound from 'containers/NotFound';
+import App from './containers/App';
+import Demo from './containers/Demo';
+import NotFound from './containers/NotFound';
 
 /**
  * Please keep routes in alphabetical order

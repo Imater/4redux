@@ -31,7 +31,6 @@ const Html = ({ assets, component, store }) => {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
 
         {/* Fonts */}
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,cyrillic' rel='stylesheet' type='text/css' />
         {/* styles (will be present only in production with webpack extract text plugin) */}
         {Object.keys(assets.styles).map((style, key) =>
           <link

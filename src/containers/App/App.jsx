@@ -16,16 +16,15 @@ import styles from './App.styl';
 )
 class App extends Component {
   static propTypes = {
-    settings: PropTypes.object,
     children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)])
   };
 
   render() {
-    const { settings: { appName }, children } = this.props;
+    const { children } = this.props;
 
     return (
       <div className={styles.app}>
-        <Helmet {...config.app.head || appName} />
+        <Helmet {...config.app.head} />
         {children}
       </div>
     );

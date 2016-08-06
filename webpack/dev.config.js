@@ -67,7 +67,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      'theme/optimize.js',
+      './src/theme/optimize.js',
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
       'font-awesome-webpack!./src/theme/font-awesome.config.js',
       './src/client.js',
@@ -94,17 +94,15 @@ module.exports = {
       { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
-  progress: true,
+  progress: false,
   resolve: {
     modules: [
-      'src',
       'node_modules'
     ],
     // TODO eslint-plugin-resole-webpack not support webpack@2 `resolve.modules` path
     // https://github.com/benmosher/eslint-plugin-import/pull/319
     // Waiting for merge this PR or webpack-2 resolver will be implemented as plugin
     modulesDirectories: [
-      'src',
       'node_modules'
     ],
     extensions: ['', '.json', '.js', '.jsx']

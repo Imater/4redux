@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
+import cx from 'classnames';
+import Title from '../../components/Title';
 
 import styles from './Demo.styl';
 
 export default class Demo extends Component {
   render() {
     return (
-      <div className={styles.demo}>
+      <div className={cx(styles.demo)}>
         <Helmet title='Demo' />
-        <h2>
-          Redux boilerplate
-        </h2>
+        <Title mode='h2'>
+          Redux boilerplate title
+        </Title>
       </div>
     );
   }

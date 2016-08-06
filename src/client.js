@@ -5,12 +5,12 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import io from 'socket.io-client';
-import createStore from 'redux/create';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
 import Perf from 'react-addons-perf';
+import createStore from './redux/create';
 
 import getRoutes from './routes';
 
