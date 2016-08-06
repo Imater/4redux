@@ -1,9 +1,11 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
-import { syncHistory } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 import { install } from 'redux-loop';
 
 export default function createStore(history, data) {
-  const reduxRouterMiddleware = syncHistory(history);
+  const reduxRouterMiddleware = routerMiddleware(history);
+
+  // const middleware = [createMiddleware(client), reduxRouterMiddleware];
 
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
@@ -25,7 +27,7 @@ export default function createStore(history, data) {
   const reducer = require('./modules/reducer');  // eslint-disable-line global-require
   const store = finalCreateStore(reducer, data);
 
-  reduxRouterMiddleware.listenForReplays(store);
+  // reduxRouterMiddleware.listenForReplays(store);
 
   if (__DEVELOPMENT__ && module.hot) {
     module.hot.accept('./modules/reducer', () => {
@@ -35,3 +37,4 @@ export default function createStore(history, data) {
 
   return store;
 }
+

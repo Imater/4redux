@@ -8,15 +8,15 @@ import io from 'socket.io-client';
 import createStore from 'redux/create';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
-import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import Perf from 'react-addons-perf';
 
 import getRoutes from './routes';
 
-const history = useScroll(() => browserHistory)();
 const dest = document.getElementById('content');
-const store = createStore(history, window.__data);
+const store = createStore(browserHistory, window.__data);
+const history = syncHistoryWithStore(browserHistory, store);
 
 function initSocket() {
   const socket = io('', { path: '/ws' });
@@ -31,13 +31,13 @@ function initSocket() {
   return socket;
 }
 
-global.socket = initSocket();
+// global.socket = initSocket(); // remove unused socket
 global.Perf = Perf;
 
 const component = (
   <Router
     render={props =>
-      <ReduxAsyncConnect {...props} filter={item => !item.deferred} />
+      <ReduxAsyncConnect {...props} helpers={{}} filter={item => !item.deferred} />
     }
     history={history}
   >
@@ -56,6 +56,12 @@ if (process.env.NODE_ENV !== 'production') {
   if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
     console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.');
   }
+
+  // const { whyDidYouUpdate } = require('why-did-you-update');  // eslint-disable-line global-require
+  //
+  // whyDidYouUpdate(React, {
+  //   include: /^ProductList$/
+  // });
 }
 
 if (__DEVTOOLS__ && !window.devToolsExtension) {
@@ -71,3 +77,4 @@ if (__DEVTOOLS__ && !window.devToolsExtension) {
     Perf.start
   );
 }
+

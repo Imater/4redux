@@ -13,11 +13,12 @@ import cookieParser from 'cookie-parser';
 import reactCookie from 'react-cookie';
 import { match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
+import { syncHistoryWithStore } from 'react-router-redux';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
 import Html from './helpers/Html';
 import config from './config';
-import create from '../src/redux/create';
+import createStore from '../src/redux/create';
 import getRoutes from './routes';
 
 const targetUrl = `http://${config.apiHost}:${config.apiPort}`;
@@ -26,13 +27,37 @@ const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
   target: targetUrl,
+  xfwd: false,
   ws: true
+});
+
+const authUrl = `${config.authServer}`;
+const targetUrlAuth = `${authUrl}/oauth`;
+const proxyAuth = httpProxy.createProxyServer({
+  target: targetUrlAuth,
+  xfwd: false,
+  changeOrigin: true
+});
+
+const apiUrl = `${config.apiServer}`;
+const targetUrlApi = `${apiUrl}/v1`;
+const proxyApi = httpProxy.createProxyServer({
+  target: targetUrlApi,
+  xfwd: false,
+  changeOrigin: true
+});
+
+const targetUrlUpload = `${apiUrl}/upload`;
+const proxyUpload = httpProxy.createProxyServer({
+  target: targetUrlUpload,
+  xfwd: false,
+  changeOrigin: true
 });
 
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(session({ secret: 'keyboard', resave: false, saveUninitialized: false }));
+app.use(session({ secret: 'keyboard relef', resave: false, saveUninitialized: false }));
 
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
@@ -44,7 +69,7 @@ app.use((req, res, next) => {
     'http://localhost:3000',
     'http://127.0.0.1:3031',
     'http://localhost:3031',
-  ];
+    'http://relef.csssr.ru'];
   const origin = req.headers.origin;
   if (allowedOrigins.indexOf(origin) > -1) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -66,9 +91,44 @@ app.use((req, res, next) => {
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
 
+const errorHandler = (error, req, res) => {
+  if (error.code !== 'ECONNRESET') {
+    console.error('proxy error', error);
+  }
+  if (!res.headersSent) {
+    res.writeHead(500, { 'content-type': 'application/json' });
+  }
+
+  res.end(JSON.stringify({ error: 'proxy_error', reason: error.message }));
+};
+
+// Proxy to oauth API server
+app.use('/oauth', (req, res) => {
+  proxyAuth.web(req, res, { target: targetUrlAuth });
+});
+proxyAuth.on('error', errorHandler);
+
+// Proxy to API server
+app.use('/v1', (req, res) => {
+  proxyApi.web(req, res, { target: targetUrlApi });
+});
+proxyApi.on('error', errorHandler);
+
 // Proxy to API server
 app.use('/api', (req, res) => {
   proxy.web(req, res, { target: targetUrl });
+});
+proxy.on('error', errorHandler);
+
+// Proxy to Upload server
+app.use('/upload', (req, res) => {
+  proxyUpload.web(req, res, { target: targetUrlUpload });
+});
+proxyUpload.on('error', errorHandler);
+
+// Proxy to Upload server
+app.use('/home/relefopt/beta.relefopt.ru/www/upload/', (req, res) => {
+  proxyUpload.web(req, res, { target: targetUrlUpload });
 });
 
 app.use('/ws', (req, res) => {
@@ -80,16 +140,7 @@ server.on('upgrade', (req, socket, head) => {
 });
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
-proxy.on('error', (error, req, res) => {
-  if (error.code !== 'ECONNRESET') {
-    console.error('proxy error', error);
-  }
-  if (!res.headersSent) {
-    res.writeHead(500, { 'content-type': 'application/json' });
-  }
-
-  res.end(JSON.stringify({ error: 'proxy_error', reason: error.message }));
-});
+proxy.on('error', errorHandler);
 
 app.use((req, res) => {
   if (__DEVELOPMENT__) {
@@ -101,10 +152,12 @@ app.use((req, res) => {
   reactCookie.setRawCookie(req.headers.cookie);
   reactCookie.plugToRequest(req, res);
 
-  const history = createHistory(req.originalUrl);
+  const historyNotSync = createHistory(req.originalUrl);
 
-  const store = create(history);
-
+  const store = createStore(historyNotSync, {
+    userAgent: req.headers['user-agent']
+  });
+  const history = syncHistoryWithStore(historyNotSync, store);
   function hydrateOnClient() {
     res.send(`<!doctype html>\n
              ${renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />)}`);
@@ -124,7 +177,7 @@ app.use((req, res) => {
       res.status(500);
       hydrateOnClient();
     } else if (renderProps) {
-      loadOnServer({ ...renderProps, store, helpers: { } }).then(() => {
+      loadOnServer({ ...renderProps, store, helpers: {} }).then(() => {
         const component = (
           <Provider store={store} key='provider'>
             <ReduxAsyncConnect {...renderProps} />
@@ -155,3 +208,4 @@ if (config.port) {
 } else {
   console.error('==>     ERROR: No PORT environment variable has been specified');
 }
+
