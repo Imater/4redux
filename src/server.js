@@ -15,7 +15,6 @@ import { match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
-import ApiClient from './helpers/ApiClientOld';
 import Html from './helpers/Html';
 import config from './config';
 import create from '../src/redux/create';
@@ -102,10 +101,9 @@ app.use((req, res) => {
   reactCookie.setRawCookie(req.headers.cookie);
   reactCookie.plugToRequest(req, res);
 
-  const client = new ApiClient(req);
   const history = createHistory(req.originalUrl);
 
-  const store = create(history, client);
+  const store = create(history);
 
   function hydrateOnClient() {
     res.send(`<!doctype html>\n
@@ -126,7 +124,7 @@ app.use((req, res) => {
       res.status(500);
       hydrateOnClient();
     } else if (renderProps) {
-      loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
+      loadOnServer({ ...renderProps, store, helpers: { } }).then(() => {
         const component = (
           <Provider store={store} key='provider'>
             <ReduxAsyncConnect {...renderProps} />

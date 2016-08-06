@@ -6,7 +6,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import io from 'socket.io-client';
 import createStore from 'redux/create';
-import ApiClient from 'helpers/ApiClientOld';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { ReduxAsyncConnect } from 'redux-async-connect';
@@ -15,10 +14,9 @@ import Perf from 'react-addons-perf';
 
 import getRoutes from './routes';
 
-const client = new ApiClient();
 const history = useScroll(() => browserHistory)();
 const dest = document.getElementById('content');
-const store = createStore(history, client, window.__data);
+const store = createStore(history, window.__data);
 
 function initSocket() {
   const socket = io('', { path: '/ws' });
@@ -39,7 +37,7 @@ global.Perf = Perf;
 const component = (
   <Router
     render={props =>
-      <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />
+      <ReduxAsyncConnect {...props} filter={item => !item.deferred} />
     }
     history={history}
   >

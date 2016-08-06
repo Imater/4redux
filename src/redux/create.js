@@ -1,19 +1,15 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import { syncHistory } from 'react-router-redux';
 import { install } from 'redux-loop';
-import createMiddleware from './middleware/clientMiddleware';
 
-export default function createStore(history, client, data) {
+export default function createStore(history, data) {
   const reduxRouterMiddleware = syncHistory(history);
-
-  // const middleware = [createMiddleware(client), reduxRouterMiddleware];
 
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
     const { persistState } = require('redux-devtools');  // eslint-disable-line global-require
     const DevTools = require('../containers/DevTools/DevTools');  // eslint-disable-line global-require
     finalCreateStore = compose(
-      applyMiddleware(createMiddleware(client)),
       install(),
       applyMiddleware(reduxRouterMiddleware),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
@@ -21,7 +17,6 @@ export default function createStore(history, client, data) {
     )(_createStore);
   } else {
     finalCreateStore = compose(
-      applyMiddleware(createMiddleware(client)),
       install(),
       applyMiddleware(reduxRouterMiddleware)
     )(_createStore);

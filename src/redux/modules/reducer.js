@@ -9,7 +9,7 @@ const reducers = combineReducers({
   reduxAsyncConnect,
   form,
   settings,
-  routing,
+  routing
 });
 
 export default reducers;
