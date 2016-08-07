@@ -1,27 +1,58 @@
 import React from 'react';
 import storiesOf from '../../utils/storiesOf.js';
-import Demo from '.';
+import Title from '.';
+
+const modes = ['h1', 'h2', 'h3', 'h4', 'h5'];
 
 storiesOf('Title')
   .addWithInfo('Default without props', () => (
-    <Demo />
+    <div>
+      <Title />
+      <Title>Not empty</Title>
+    </div>
   ))
-  .addWithInfo('Title mode h2', () => (
-    <Demo mode='h2'>
-      Заголовок h2
-    </Demo>
+  .addWithInfo('Title mode h1, h2, ..., h5', () => (
+    <div>
+      {
+        modes.map(
+          modeName =>
+            <Title
+              key={modeName}
+              mode={modeName}
+            >
+              Заголовок {modeName}
+            </Title>
+        )
+      }
+    </div>
   ))
   .addWithInfo('Title without mode', () => (
-    <Demo>
+    <Title>
       Заголовок по умолчанию
-    </Demo>
+    </Title>
   ))
   .addWithInfo('Title with long text', () => (
-    <Demo>
+    <Title>
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
       tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
       vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
       no sea takimata sanctus est Lorem ipsum dolor sit amet.
-    </Demo>
+    </Title>
+  ))
+  .addWithInfo('Title with long text isOneLine', () => (
+    <div>
+      <Title isOneLine>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+        vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+        no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </Title>
+      <Title isOneLine>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+        vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+        no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </Title>
+    </div>
   ));
 

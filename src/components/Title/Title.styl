@@ -1,4 +1,35 @@
-.mode_h2 {
-  color: green;
+$step = 0.2em;
+$startSize = 1em;
+.commonTitle {
+  font-weight: bold;
+}
+.mode_h1 {
+  composes: commonTitle;
+  font-size: ($startSize + $step * 4);
 }
 
+.mode_h2 {
+  composes: commonTitle;
+  font-size: ($startSize + $step * 3);
+}
+
+.mode_h3 {
+  composes: commonTitle;
+  font-size: ($startSize + $step * 2);
+}
+
+.mode_h4 {
+  composes: commonTitle;
+  font-size: ($startSize + $step * 1);
+}
+
+.mode_h5 {
+  composes: commonTitle;
+  font-size: ($startSize + $step * 0);
+}
+.oneLine {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
