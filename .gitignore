@@ -6,6 +6,7 @@ coverage/
 webpack-assets.json
 webpack-stats.json
 npm-debug.log
+generator-4redux/
 .DS_Store
 
 .tern-project
