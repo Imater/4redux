@@ -6,47 +6,54 @@ import styles from './Tabs.styl';
 export default class Tabs extends Component {
   static propTypes = {
     mode: pt.oneOf(['default']),
-    active: pt.oneOfType([pt.number, pt.string]),
-    renderer: pt.func,
+    tabs: pt.array,
+    activeId: pt.oneOfType([pt.string, pt.number]),
     onChange: pt.func,
-    tabs: pt.array
+    renderer: pt.func
   }
+
   static defaultProps = {
     mode: 'default',
+    tabs: [],
     renderer: () => {},
-    onChange: () => {},
-    tabs: []
+    onChange: () => () => {}
   }
-  activateTab = newActive => () => {
+
+  handleClick = newActiveId => () => {
     const { onChange } = this.props;
-    console.info('clicked!!!', newActive);
-    onChange(newActive);
-  };
+    onChange(newActiveId);
+  }
+
   renderTab = (tab, index) => {
-    const { active } = this.props;
+    const { activeId } = this.props;
     const key = tab.id || index;
-    console.info('tab', styles);
     return (
       <li
+        key={key}
+        onClick={this.handleClick(key)}
         className={cx(styles.tabTitle, {
-          [styles.tabActive]: key === active
+          [styles.tabTitleActive]: activeId === key
         })}
-        key={tab.id || index}
-        onClick={this.activateTab(key)}
       >
         {tab.title}
       </li>
     );
   };
+
   render() {
-    const { mode, renderer, active, tabs } = this.props;
+    const { mode, tabs, renderer, activeId } = this.props;
     return (
       <div>
         <ul>
           {tabs.map(this.renderTab)}
         </ul>
-        <div className={cx(styles[`mode_${mode}`])}>
-          {renderer(active)}
+        <div
+          className={
+            cx(styles[`mode_${mode}`], {
+            })
+          }
+        >
+          {renderer(activeId)}
         </div>
       </div>
     );
