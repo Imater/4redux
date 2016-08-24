@@ -121,6 +121,7 @@
     "webpackIsomorphicTools": true,
     "describe": true,
     "it": true,
+    "sinon": true,
     "expect": true
   }
 }
