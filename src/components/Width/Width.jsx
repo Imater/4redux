@@ -13,7 +13,8 @@ WindowWrapper.propTypes = {
 
 export default class Width extends Component {
   static propTypes = {
-    children: pt.oneOfType([pt.node, pt.arrayOf(pt.node)])
+    children: pt.oneOfType([pt.node, pt.arrayOf(pt.node)]),
+    test: pt.string
   }
   static defaultProps = {
     mode: 'h5'
