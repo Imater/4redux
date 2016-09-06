@@ -4,8 +4,12 @@ import moment from 'moment';
 
 import styles from './Calendar.styl';
 
+const getMonday = date => {
+  return date.startOf('isoweek');
+};
+
 const dateFromYearWeekDay = (year, week, weekDay) => {
-  const startYearDate = moment(`${year}-01-01`);
+  const startYearDate = getMonday(moment(`${year}-01-01`));
   const weekFirstDay = startYearDate.add(week - 1, 'week');
   const date = weekFirstDay.add(weekDay - 1, 'day');
   return date;
@@ -49,7 +53,7 @@ export default class Calendar extends Component {
   };
   renderCalendar = () => {
     const calendar = [];
-    for (let i = 1; i < 530; i++) {
+    for (let i = 1; i < (365 / 7) * 3; i++) {
       calendar.push(
         this.renderWeek(2016, i)
       );
