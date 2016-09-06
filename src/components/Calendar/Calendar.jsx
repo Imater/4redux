@@ -18,11 +18,15 @@ const dateFromYearWeekDay = (year, week, weekDay) => {
 export default class Calendar extends Component {
   static propTypes = {
     mode: pt.oneOf(['default']),
-    holidays: pt.object
+    holidays: pt.object,
+    year: pt.string,
+    country: pt.string
   };
   static defaultProps = {
     mode: 'default',
-    holidays: {}
+    holidays: {},
+    year: '2013',
+    country: 'RU'
   };
   renderDay = weekDay => {
     const { holidays } = this.props;
@@ -52,10 +56,11 @@ export default class Calendar extends Component {
     );
   };
   renderCalendar = () => {
+    const { year } = this.props;
     const calendar = [];
     for (let i = 1; i < (365 / 7) * 3; i++) {
       calendar.push(
-        this.renderWeek(2016, i)
+        this.renderWeek(year, i)
       );
     }
     return calendar;
