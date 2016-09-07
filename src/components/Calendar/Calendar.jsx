@@ -30,14 +30,14 @@ export default class Calendar extends Component {
   };
   renderDay = weekDay => {
     const { holidays } = this.props;
-    const currentDate = weekDay.format('MM-DD');
+    const currentDate = weekDay.format('YYYY-MM-DD');
     const found = holidays[currentDate];
-    const title = found ? found.title : '';
+    const title = found && found.length ? found[0].name : '';
     return (
       <div className={styles.dayCell} key={weekDay.format('LL')}>
         {weekDay.format( weekDay.format('D') === '1' ? 'LL' : 'D')}
         {title &&
-          <div>
+          <div className={styles.title}>
             {title}
           </div>
         }
