@@ -1,4 +1,4 @@
-require('babel-polyfill'); // eslint-disable-line import/no-require
+require('babel-polyfill') // eslint-disable-line import/no-require
 
 const environment = {
   development: {
@@ -7,7 +7,7 @@ const environment = {
   production: {
     isProduction: true
   }
-}[process.env.NODE_ENV || 'development'];
+}[process.env.NODE_ENV || 'development']
 
 export default Object.assign({
   host: process.env.HOST || 'localhost',
@@ -41,4 +41,4 @@ export default Object.assign({
       ]
     }
   }
-}, environment);
+}, environment)

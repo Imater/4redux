@@ -1,1 +1,1 @@
-export { default } from './ChildrenTypes';
+export { default } from './ChildrenTypes'

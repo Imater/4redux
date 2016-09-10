@@ -1,1 +1,1 @@
-export { default } from './Spread';
+export { default } from './Spread'

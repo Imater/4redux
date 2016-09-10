@@ -1,1 +1,1 @@
-export { default } from './DevTools';
+export { default } from './DevTools'

@@ -1,6 +1,6 @@
 import React from 'react';
 import storiesOf from '../../utils/storiesOf.js';
-import stateDecorator from '../../helpers/decorators/stateDecorator.js';
+import stateDecorator from '../../decorators/stateDecorator.js';
 import Checkbox from '.';
 
 const DecoratedCheckbox = stateDecorator('checked', true)(Checkbox);
