@@ -10,7 +10,6 @@ module.exports = function (config) {
     frameworks: ['mocha', 'chai', 'sinon'],
 
     files: [
-      './node_modules/phantomjs-polyfill/bind-polyfill.js',
       'tests.webpack.js'
     ],
 

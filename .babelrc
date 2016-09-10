@@ -24,7 +24,7 @@
     "test": {
       "plugins": [
         [
-          "__coverage__", {
+          "istanbul", {
             "ignore": "*test.js"
           }
         ]

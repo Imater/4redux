@@ -11,7 +11,7 @@ import NotFound from './containers/NotFound';
 const routes = (/* store */) => (
   <Route path='/' component={App}>
     <IndexRoute component={Demo} />
-	<Route path='/calendar' component={CalendarPage} />
+	  <Route path='/calendar' component={CalendarPage} />
     <Route path='*' component={NotFound} status={404} />
   </Route>
 );
