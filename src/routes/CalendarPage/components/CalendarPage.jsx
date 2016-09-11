@@ -8,7 +8,7 @@ class CalendarPage extends PureComponent {
   static propTypes = {
     holidays: pt.object,
     country: pt.string,
-    year: pt.number,
+    year: pt.string,
     error: pt.string
   };
 
@@ -16,7 +16,7 @@ class CalendarPage extends PureComponent {
     const { holidays, country, year, error } = this.props
 
     return (
-      <div>
+      <div className={styles.demo}>
         <Helmet title='Calendar' />
         { error && <b>{error}</b> }
         <Calendar

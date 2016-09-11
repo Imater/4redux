@@ -3,7 +3,7 @@ import http from 'http'
 import Express from 'express'
 import PrettyError from 'pretty-error'
 import React from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
+import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import favicon from 'serve-favicon'
 import compression from 'compression'
 import bodyParser from 'body-parser'
@@ -20,8 +20,6 @@ import Html from './helpers/Html'
 import config from './config'
 import createStore from '../src/store/create'
 import createRoutes from './routes'
-
-require.ensure = (dep, cb) => cb(require)
 
 const targetUrl = `http://${config.apiHost}:${config.apiPort}`
 const pretty = new PrettyError()
@@ -162,7 +160,7 @@ app.use((req, res) => {
   const history = syncHistoryWithStore(historyNotSync, store)
   function hydrateOnClient() {
     res.send(`<!doctype html>\n
-             ${renderToStaticMarkup(<Html assets={webpackIsomorphicTools.assets()} store={store} />)}`)
+      ${renderToStaticMarkup(<Html assets={webpackIsomorphicTools.assets()} store={store} />)}`)
   }
 
   if (__DISABLE_SSR__) {
@@ -191,7 +189,7 @@ app.use((req, res) => {
         global.navigator = { userAgent: req.headers['user-agent'] }
 
         res.send(`<!doctype html>\n
-                 ${renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`)
+          ${renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`)
       })
     } else {
       res.status(404).send('Not found')
