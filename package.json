@@ -22,18 +22,16 @@
   ],
   "main": "bin/server.js",
   "scripts": {
-    "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
+    "start": "concurrent --kill-others \"npm run start-prod\"",
     "start-prod": "better-npm-run start-prod",
-    "start-prod-api": "better-npm-run start-prod-api",
     "build": "concurrent --kill-others \"better-npm-run build\" \"npm run build-storybook\"",
     "lint": "eslint -c .eslintrc src api --ext js,jsx",
     "lint-fix": "eslint -c .eslintrc src api --ext js,jsx --fix",
     "start-dev": "better-npm-run start-dev",
     "start-dev-render-on-client": "better-npm-run start-dev-render-on-client",
-    "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
-    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
-    "dev-render-on-client": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\" \"npm run start-dev-api\"",
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
+    "dev-render-on-client": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\" ",
     "test": "better-npm-run test",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register --watch",
@@ -46,18 +44,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "PORT": 8080,
-        "APIPORT": 3031
-      }
-    },
-    "start-prod-api": {
-      "command": "node --harmony ./bin/api.js",
-      "env": {
-        "NODE_PATH": "./api",
-        "NODE_ENV": "production",
-        "GITHUB_CLIENT_ID": "078c91071605c49f3293",
-        "GITHUB_CLIENT_SECRET": "da28a391c4c5313dd786287608a7b25bb12666c1",
-        "APIPORT": 3031
+        "PORT": 8080
       }
     },
     "start-dev": {
@@ -75,18 +62,7 @@
         "NODE_PATH": "./src",
         "__DISABLE_SSR__": true,
         "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIPORT": 3031
-      }
-    },
-    "start-dev-api": {
-      "command": "node ./bin/api.js",
-      "env": {
-        "NODE_PATH": "./api",
-        "NODE_ENV": "development",
-        "APIPORT": 3031,
-        "GITHUB_CLIENT_ID": "078c91071605c49f3293",
-        "GITHUB_CLIENT_SECRET": "da28a391c4c5313dd786287608a7b25bb12666c1"
+        "PORT": 3000
       }
     },
     "watch-client": {
@@ -116,6 +92,8 @@
     }
   },
   "dependencies": {
+    "@kadira/react-storybook-addon-info": "^3.2.1",
+    "@kadira/storybook": "^2.13.0",
     "axios": "^0.14.0",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.1",
@@ -174,8 +152,6 @@
     "warning": "^3.0.0"
   },
   "devDependencies": {
-    "@kadira/react-storybook-addon-info": "^3.2.1",
-    "@kadira/storybook": "^2.13.0",
     "autoprefixer-loader": "^3.1.0",
     "babel-eslint": "^6.1.0",
     "babel-plugin-istanbul": "^1.0.3",

@@ -1,8 +1,8 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import Title from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import Title from '.'
 
-const modes = ['h1', 'h2', 'h3', 'h4', 'h5'];
+const modes = ['h1', 'h2', 'h3', 'h4', 'h5']
 
 storiesOf('Title')
   .addWithInfo('Default without props', () => (
@@ -54,5 +54,5 @@ storiesOf('Title')
         no sea takimata sanctus est Lorem ipsum dolor sit amet.
       </Title>
     </div>
-  ));
+  ))
 

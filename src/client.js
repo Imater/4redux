@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /**
  * ENTRY POINT FOR THE CLIENT
  */

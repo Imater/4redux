@@ -10,7 +10,7 @@ const createStore = (history, data) => {
 
   let finalCreateStore
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
-    const { persistState } = require('redux-devtools') // eslint-disable-line global-require
+    const { persistState } = require('redux-devtools') // eslint-disable-line global-require, import/no-extraneous-dependencies
     const DevTools = require('../containers/DevTools/DevTools') // eslint-disable-line global-require
 
     finalCreateStore = compose(

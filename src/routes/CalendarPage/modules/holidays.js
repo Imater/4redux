@@ -12,11 +12,10 @@ const initialState = {
   data: {}
 }
 
-const request = (country, year) => () => {
-  return client.get(`https://holidayapi.com/v1/holidays?key=f988097d-8481-420d-8f86-6b29abec97c4&country=${country}&year=${year}`)
+const request = (country, year) => () =>
+  client.get(`https://holidayapi.com/v1/holidays?key=f988097d-8481-420d-8f86-6b29abec97c4&country=${country}&year=${year}`)
     .then(fetchSuccess)
     .catch(fetchFailure)
-}
 
 const handleFetch = (state, payload) => {
   const { country, year } = payload
@@ -42,14 +41,13 @@ const handleFetchSuccess = (state, payload) => {
   }
 }
 
-const handleFetchFailure = (state, payload) => {
-  return {
+const handleFetchFailure = (state, payload) =>
+  ({
     ...state,
     isLoaded: false,
     isLoading: false,
     error: String(payload)
-  }
-}
+  })
 
 const reducer = createReducer(on => {
   on(fetch, handleFetch)

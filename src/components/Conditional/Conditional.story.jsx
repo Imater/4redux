@@ -1,6 +1,6 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import Conditional from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import Conditional from '.'
 
 storiesOf('Conditional')
   .addWithInfo('Default without props', () => (
@@ -14,5 +14,5 @@ storiesOf('Conditional')
   ))
   .addWithInfo('Default with isHello=false', () => (
     <Conditional>test</Conditional>
-  ));
+  ))
 

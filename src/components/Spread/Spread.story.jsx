@@ -1,12 +1,12 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import Spread from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import Spread from '.'
 
-const isOpenName = 'isOpen';
+const isOpenName = 'isOpen'
 const spreadProps = {
   [isOpenName]: true,
   title: 'hello'
-};
+}
 
 storiesOf('Spread')
   .addWithInfo('Default without props', () => (
@@ -22,5 +22,5 @@ storiesOf('Spread')
     >
       Hello
     </Spread>
-  ));
+  ))
 

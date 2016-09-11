@@ -1,8 +1,8 @@
 /* eslint-disable global-require */
-import React, { Component, PropTypes } from 'react';
-import { renderToString } from 'react-dom/server';
-import serialize from 'serialize-javascript';
-import Helmet from 'react-helmet';
+import React, { Component, PropTypes } from 'react'
+import { renderToString } from 'react-dom/server'
+import serialize from 'serialize-javascript'
+import Helmet from 'react-helmet'
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
@@ -14,11 +14,11 @@ import Helmet from 'react-helmet';
  * by the server.js file.
  */
 const Html = ({ assets, component, store }) => {
-  const content = component ? renderToString(component) : '';
-  const head = Helmet.rewind();
+  const content = component ? renderToString(component) : ''
+  const head = Helmet.rewind()
 
   return (
-    <html lang='en-us'>
+    <html lang='en-US'>
       <head>
         {head.base.toComponent()}
         {head.title.toComponent()}
@@ -42,18 +42,18 @@ const Html = ({ assets, component, store }) => {
         )}
       </head>
       <body>
-        <div id='content' dangerouslySetInnerHTML={{ __html: content }} ></div>
-        <script dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }} charSet='UTF-8' ></script>
-        <script src={assets.javascript.main} charSet='UTF-8' ></script>
+        <div id='content' dangerouslySetInnerHTML={{ __html: content }} />
+        <script dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }} charSet='UTF-8' />
+        <script src={assets.javascript.main} charSet='UTF-8' />
       </body>
     </html>
-  );
-};
+  )
+}
 
 Html.propTypes = {
   assets: PropTypes.object,
   component: PropTypes.node,
   store: PropTypes.object
-};
+}
 
-export default Html;
+export default Html

@@ -1,7 +1,7 @@
-import React, { Component, PropTypes as pt } from 'react';
-import cx from 'classnames';
+import React, { Component, PropTypes as pt } from 'react'
+import cx from 'classnames'
 
-import styles from './Tabs.styl';
+import styles from './Tabs.styl'
 
 export default class Tabs extends Component {
   static propTypes = {
@@ -20,13 +20,13 @@ export default class Tabs extends Component {
   }
 
   handleClick = newActiveId => () => {
-    const { onChange } = this.props;
-    onChange(newActiveId);
+    const { onChange } = this.props
+    onChange(newActiveId)
   }
 
   renderTab = (tab, index) => {
-    const { activeId } = this.props;
-    const key = tab.id || index;
+    const { activeId } = this.props
+    const key = tab.id || index
     return (
       <li
         key={key}
@@ -37,11 +37,11 @@ export default class Tabs extends Component {
       >
         {tab.title}
       </li>
-    );
+    )
   };
 
   render() {
-    const { mode, tabs, renderer, activeId } = this.props;
+    const { mode, tabs, renderer, activeId } = this.props
     return (
       <div>
         <ul>
@@ -56,6 +56,6 @@ export default class Tabs extends Component {
           {renderer(activeId)}
         </div>
       </div>
-    );
+    )
   }
 }

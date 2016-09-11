@@ -1,7 +1,7 @@
-import React, { Component, PropTypes as pt } from 'react';
-import cx from 'classnames';
+import React, { Component, PropTypes as pt } from 'react'
+import cx from 'classnames'
 
-import styles from './Checkbox.styl';
+import styles from './Checkbox.styl'
 
 export default class Checkbox extends Component {
   static propTypes = {
@@ -15,11 +15,11 @@ export default class Checkbox extends Component {
     onChange: () => {}
   }
   handleChange = () => {
-    const { onChange, checked } = this.props;
-    onChange(!checked);
+    const { onChange, checked } = this.props
+    onChange(!checked)
   }
   render() {
-    const { mode, children, checked } = this.props;
+    const { mode, children, checked } = this.props
     return (
       <div
         className={
@@ -33,6 +33,6 @@ export default class Checkbox extends Component {
           <input type='checkbox' checked={checked} onChange={this.handleChange} />
         </label>
       </div>
-    );
+    )
   }
 }

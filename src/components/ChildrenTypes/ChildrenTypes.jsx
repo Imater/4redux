@@ -1,10 +1,10 @@
-import React, { Component, PropTypes as pt } from 'react';
+import React, { Component, PropTypes as pt } from 'react'
 
 
-const ProxyComponent = ({ children }) => React.Children.only(children);
+const ProxyComponent = ({ children }) => React.Children.only(children)
 ProxyComponent.propTypes = {
   children: pt.oneOfType([pt.node, pt.arrayOf(pt.node)])
-};
+}
 
 export default class ChildrenTypes extends Component {
   static propTypes = {
@@ -14,8 +14,8 @@ export default class ChildrenTypes extends Component {
     mode: 'h5'
   }
   render() {
-    const { mode } = this.props;
-    const iAmThird = 'I am third';
+    const { mode } = this.props
+    const iAmThird = 'I am third'
     return (
       <ul>
         <li>
@@ -39,6 +39,6 @@ export default class ChildrenTypes extends Component {
           </ProxyComponent>
         </li>
       </ul>
-    );
+    )
   }
 }

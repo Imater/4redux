@@ -1,7 +1,7 @@
-import React, { Component, PropTypes as pt } from 'react';
-import cx from 'classnames';
+import React, { Component, PropTypes as pt } from 'react'
+import cx from 'classnames'
 
-import styles from './Title.styl';
+import styles from './Title.styl'
 
 export default class Demo extends Component {
   static propTypes = {
@@ -14,7 +14,7 @@ export default class Demo extends Component {
     isOneLine: false
   }
   render() {
-    const { mode, children, isOneLine } = this.props;
+    const { mode, children, isOneLine } = this.props
     return (
       <div
         className={
@@ -25,6 +25,6 @@ export default class Demo extends Component {
       >
         {children}
       </div>
-    );
+    )
   }
 }

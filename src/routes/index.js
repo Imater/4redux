@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import CoreLayout from '../layout/CoreLayout'
 
 import CalendarPage from './CalendarPage'

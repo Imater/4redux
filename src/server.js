@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import path from 'path'
 import http from 'http'
 import Express from 'express'

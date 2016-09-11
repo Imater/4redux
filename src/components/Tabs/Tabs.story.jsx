@@ -1,7 +1,7 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import stateDecorator from '../../decorators/stateDecorator.js';
-import Tabs from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import stateDecorator from '../../decorators/stateDecorator.js'
+import Tabs from '.'
 
 const sampleTabs = [
   {
@@ -16,12 +16,12 @@ const sampleTabs = [
     id: '3',
     title: 'Third tab'
   }
-];
-const renderer = activeId => <b>{activeId}</b>;
-const index = 0;
+]
+const renderer = activeId => <b>{activeId}</b>
+const index = 0
 
 
-const DecoratedTabs = stateDecorator('activeId', 1)(Tabs);
+const DecoratedTabs = stateDecorator('activeId', 1)(Tabs)
 // const DecoratedTabs = tabsDecorator('checked')(Checkbox);
 
 storiesOf('Tabs')
@@ -47,5 +47,5 @@ storiesOf('Tabs')
       activeId={sampleTabs[index].id}
       renderer={renderer}
     />
-  ));
+  ))
 

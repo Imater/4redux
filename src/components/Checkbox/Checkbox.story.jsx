@@ -1,9 +1,9 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import stateDecorator from '../../decorators/stateDecorator.js';
-import Checkbox from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import stateDecorator from '../../decorators/stateDecorator.js'
+import Checkbox from '.'
 
-const DecoratedCheckbox = stateDecorator('checked', true)(Checkbox);
+const DecoratedCheckbox = stateDecorator('checked', true)(Checkbox)
 
 storiesOf('Checkbox')
   .addWithInfo('Default without props', () => (
@@ -17,5 +17,5 @@ storiesOf('Checkbox')
   ))
   .addWithInfo('Default with DecoratedCheckbox', () => (
     <DecoratedCheckbox>DecoratedCheckbox</DecoratedCheckbox>
-  ));
+  ))
 

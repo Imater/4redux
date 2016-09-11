@@ -1,6 +1,6 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import Stateless from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import Stateless from '.'
 
 storiesOf('Stateless')
   .addWithInfo('Default without props', () => (
@@ -11,5 +11,5 @@ storiesOf('Stateless')
   ))
   .addWithInfo('Default with Hello word', () => (
     <Stateless title='Hello' />
-  ));
+  ))
 

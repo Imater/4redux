@@ -11,6 +11,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "comma-dangle": [2, "never"],
     "arrow-parens": ["error", "as-needed"],
+    "class-methods-use-this": 1,
     "semi": [
       "error",
       "never"
@@ -43,6 +44,7 @@
         "ignoreTranspilerName": false
       }
     ],
+    "react/forbid-prop-types": 1,
     "react/jsx-no-bind": [1, {
       "ignoreRefs": true,
       "allowArrowFunctions": false,
@@ -56,7 +58,7 @@
     ],
     "react/jsx-pascal-case": 2,
     "react/jsx-handler-names": [
-      1,
+      2,
       {
         "eventHandlerPrefix": "handle",
         "eventHandlerPropPrefix": "on"
@@ -73,6 +75,7 @@
         "amd": false
       }
     ],
+    "import/no-extraneous-dependencies": 1,
     "import/no-duplicates": 2,
     "import/no-named-as-default": 2,
     "import/named": 2,

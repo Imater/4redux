@@ -1,6 +1,6 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import ChildrenTypes from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import ChildrenTypes from '.'
 
 storiesOf('ChildrenTypes')
   .addWithInfo('Default without props', () => (
@@ -11,5 +11,5 @@ storiesOf('ChildrenTypes')
   ))
   .addWithInfo('Default with Hello word', () => (
     <ChildrenTypes>Hello</ChildrenTypes>
-  ));
+  ))
 

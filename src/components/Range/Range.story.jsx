@@ -1,6 +1,6 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import Range from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import Range from '.'
 
 class RangeWrapper extends React.Component {
   state = {
@@ -12,7 +12,7 @@ class RangeWrapper extends React.Component {
     this.setState({
       valueLeft,
       valueRight
-    });
+    })
   };
 
   render() {
@@ -23,7 +23,7 @@ class RangeWrapper extends React.Component {
         valueRight={this.state.valueRight}
         onChange={this.handleChange}
       />
-    );
+    )
   }
 }
 
@@ -34,5 +34,4 @@ storiesOf('Range')
   .addWithInfo('Default with props', () => (
     <RangeWrapper />
   ))
-;
 

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import cx from 'classnames';
-import Title from '../../components/Title';
+import React, { Component } from 'react'
+import Helmet from 'react-helmet'
+import cx from 'classnames'
+import Title from '../../components/Title'
 
-import styles from './Demo.styl';
+import styles from './Demo.styl'
 
 export default class Demo extends Component {
   render() {
@@ -14,6 +14,6 @@ export default class Demo extends Component {
           Redux boilerplate title
         </Title>
       </div>
-    );
+    )
   }
 }

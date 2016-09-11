@@ -8,5 +8,5 @@ storiesOf('CalendarPage')
   ))
   .addWithInfo('Default with children', () => (
     <CalendarPage>CalendarPage</CalendarPage>
-  ));
+  ))
 

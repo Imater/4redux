@@ -1,6 +1,6 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import Calendar from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf.js'
+import Calendar from '.'
 
 const holidays = {
   '01-08': {
@@ -9,7 +9,7 @@ const holidays = {
   '01-29': {
     title: 'На работу'
   }
-};
+}
 
 storiesOf('Calendar')
   .addWithInfo('Default without props', () => (
@@ -20,5 +20,5 @@ storiesOf('Calendar')
   ))
   .addWithInfo('Default with holidays', () => (
     <Calendar holidays={holidays}>Calendar</Calendar>
-  ));
+  ))
 
