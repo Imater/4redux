@@ -28,8 +28,8 @@ const handleAction = (state, payload) =>
 // ------------------------------------
 const initialState = {}
 
-const reducer = createReducer(on => {
+const <%= camelEntityName %> = createReducer(on => {
   on(action, handleAction)
 }, initialState)
 
-export default reducer
+export default <%= camelEntityName %>

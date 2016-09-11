@@ -3,5 +3,7 @@
   "testBase": "src",
   "smartPath": "containers",
   "dumbPath": "components",
-  "fileCasing": "pascal"
+  "routesPath": "routes",
+  "modulesPath": "modules",
+  "fileCasing": "default"
 }

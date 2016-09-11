@@ -1,5 +1,3 @@
-const humps = require('humps')
-
 module.exports = {
   description() {
     return 'Generates a plain route structure'
@@ -14,16 +12,12 @@ module.exports = {
   },
   fileMapTokens() {
     return {
-      __route__: options =>
-        options.settings.getSetting('routesPath'),
       __dumb__: options =>
         options.settings.getSetting('dumbPath'),
       __smart__: options =>
         options.settings.getSetting('smartPath'),
       __module__: options =>
-        options.settings.getSetting('modulesPath'),
-      __module_name__: options =>
-        humps.camelize(options.entity.name)
+        options.settings.getSetting('modulesPath')
     }
   }
 }

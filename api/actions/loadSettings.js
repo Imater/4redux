@@ -137,8 +137,8 @@ const initialState = {
       ]
     }
   }
-};
+}
 
 export default function loadSettings() {
-  return Promise.resolve(initialState);
+  return Promise.resolve(initialState)
 }

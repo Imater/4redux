@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import { action } from '../modules/<%= pascalEntityName %>'
-import <%= pascalEntityName %> from '../components/<%= pascalEntityName %>'
+import { action } from '../<%= __module__ %>/<%= camelEntityName %>'
+import <%= pascalEntityName %> from '../<%= __dumb__ %>/<%= pascalEntityName %>'
 
 const mapActionCreators = {
   action: () => action(1)
