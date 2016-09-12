@@ -7,7 +7,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import io from 'socket.io-client'
 import { Provider } from 'react-redux'
-import { Router, browserHistory } from 'react-router'
+import { Router, browserHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { ReduxAsyncConnect } from 'redux-async-connect'
 import Perf from 'react-addons-perf'
@@ -35,23 +35,14 @@ function initSocket() {
 // global.socket = initSocket(); // remove unused socket
 global.Perf = Perf
 
-const component = (
-  <Router
-    render={props =>
-      <ReduxAsyncConnect {...props} helpers={{}} filter={item => !item.deferred} />
-    }
-    history={history}
-  >
-    {getRoutes(store)}
-  </Router>
-)
-
-render(
-  <Provider store={store} key='provider'>
-    {component}
-  </Provider>,
-  dest
-)
+match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
+  render(
+    <Provider store={store} key='provider'>
+      <ReduxAsyncConnect {...renderProps} helpers={{}} filter={item => !item.deferred} />
+    </Provider>,
+    dest
+  )
+})
 
 if (process.env.NODE_ENV !== 'production') {
   if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
@@ -68,15 +59,16 @@ if (process.env.NODE_ENV !== 'production') {
 if (__DEVTOOLS__ && !window.devToolsExtension) {
   const DevTools = require('./containers/DevTools/DevTools') // eslint-disable-line global-require
 
-  render(
-    <Provider store={store} key='provider'>
-      <div>
-        {component}
-        <DevTools />
-      </div>
-    </Provider>,
-    dest,
-    Perf.start
-  )
+  match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
+    render(
+      <Provider store={store} key='provider'>
+        <div>
+          <ReduxAsyncConnect {...renderProps} helpers={{}} filter={item => !item.deferred} />
+          <DevTools />
+        </div>
+      </Provider>,
+      dest,
+      Perf.start
+    )
+  })
 }
-
