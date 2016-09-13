@@ -1,6 +1,6 @@
-import React from 'react';
-import storiesOf from '../../utils/storiesOf.js';
-import <%= pascalEntityName %> from '.';
+import React from 'react'
+import storiesOf from '../../utils/storiesOf'
+import <%= pascalEntityName %> from '.'
 
 storiesOf('<%= pascalEntityName %>')
   .addWithInfo('Default without props', () => (
@@ -8,5 +8,5 @@ storiesOf('<%= pascalEntityName %>')
   ))
   .addWithInfo('Default with children', () => (
     <<%= pascalEntityName %>><%= pascalEntityName %></<%= pascalEntityName %>>
-  ));
+  ))
 
