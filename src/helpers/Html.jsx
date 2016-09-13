@@ -1,5 +1,5 @@
-/* eslint-disable global-require */
-import React, { Component, PropTypes } from 'react'
+/* eslint-disable global-require, react/no-danger, react/forbid-prop-types */
+import React, { PropTypes } from 'react'
 import { renderToString } from 'react-dom/server'
 import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'

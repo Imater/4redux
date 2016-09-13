@@ -5,7 +5,7 @@
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -19,27 +19,30 @@ const dest = document.getElementById('content')
 const store = createStore(browserHistory, window.__data)
 const history = syncHistoryWithStore(browserHistory, store)
 
-function initSocket() {
-  const socket = io('', { path: '/ws' })
-  socket.on('news', data => {
-    console.log(data)
-    socket.emit('my other event', { my: 'data from client' })
-  })
-  socket.on('msg', data => {
-    console.log(data)
-  })
-
-  return socket
-}
+// function initSocket() {
+//   const socket = io('', { path: '/ws' })
+//   socket.on('news', data => {
+//     console.log(data)
+//     socket.emit('my other event', { my: 'data from client' })
+//   })
+//   socket.on('msg', data => {
+//     console.log(data)
+//   })
+//
+//   return socket
+// }
 
 // global.socket = initSocket(); // remove unused socket
 global.Perf = Perf
 
+const getFilter = item => !item.deferred
+
+const getReduxAsyncConnect = props =>
+  <ReduxAsyncConnect {...props} helpers={{}} filter={getFilter} />
+
 const component = (
   <Router
-    render={props =>
-      <ReduxAsyncConnect {...props} helpers={{}} filter={item => !item.deferred} />
-    }
+    render={getReduxAsyncConnect}
     history={history}
   >
     {getRoutes(store)}
@@ -55,7 +58,7 @@ render(
 
 if (process.env.NODE_ENV !== 'production') {
   if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
-    console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.')
+    console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.') // eslint-disable-line no-console
   }
 
   // const { whyDidYouUpdate } = require('why-did-you-update');  // eslint-disable-line global-require

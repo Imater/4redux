@@ -10,7 +10,6 @@ const mapActionCreators = {
 
 const mapStateToProps =
   ({
-    holidays,
     holidays: { data, error },
     routing: { locationBeforeTransitions: { query: { country, year } } }
   }) => ({

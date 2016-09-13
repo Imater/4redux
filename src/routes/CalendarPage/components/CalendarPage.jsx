@@ -6,7 +6,10 @@ import styles from './CalendarPage.scss'
 
 class CalendarPage extends PureComponent {
   static propTypes = {
-    holidays: pt.object,
+    holidays: pt.shape(pt.shape({
+      title: pt.string,
+      name: pt.string
+    })),
     country: pt.string,
     year: pt.string,
     error: pt.string

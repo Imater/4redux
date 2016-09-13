@@ -3,6 +3,7 @@ import { routerMiddleware } from 'react-router-redux'
 import { install } from 'redux-loop'
 import makeReducers from './reducers'
 
+// eslint-disable-next-line complexity
 const createStore = (history, data) => {
   const reduxRouterMiddleware = routerMiddleware(history)
 

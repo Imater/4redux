@@ -4,9 +4,7 @@ import moment from 'moment'
 
 import styles from './Calendar.styl'
 
-const getMonday = date => {
-  return date.startOf('isoweek')
-}
+const getMonday = date => date.startOf('isoweek')
 
 const dateFromYearWeekDay = (year, week, weekDay) => {
   const startYearDate = getMonday(moment(`${year}-01-01`))
@@ -15,18 +13,23 @@ const dateFromYearWeekDay = (year, week, weekDay) => {
   return date
 }
 
+const printDate = weekDay => weekDay.format(weekDay.format('D') === '1' ? 'LL' : 'D')
+
 export default class Calendar extends Component {
   static propTypes = {
     mode: pt.oneOf(['default']),
-    holidays: pt.object,
-    year: pt.string,
-    country: pt.string
+    holidays: pt.shape(
+      pt.shape({
+        title: pt.string,
+        name: pt.string
+      })
+    ),
+    year: pt.string
   };
   static defaultProps = {
     mode: 'default',
     holidays: {},
-    year: '2013',
-    country: 'RU'
+    year: '2013'
   };
   renderDay = weekDay => {
     const { holidays } = this.props
@@ -35,7 +38,7 @@ export default class Calendar extends Component {
     const title = found && found.length ? found[0].name : ''
     return (
       <div className={styles.dayCell} key={weekDay.format('LL')}>
-        {weekDay.format(weekDay.format('D') === '1' ? 'LL' : 'D')}
+        {printDate(weekDay)}
         {title &&
           <div className={styles.title}>
             {title}
@@ -46,9 +49,7 @@ export default class Calendar extends Component {
   };
   renderWeek = (year, week) => {
     const weekDays = [1, 2, 3, 4, 5, 6, 7]
-    const weekDates = weekDays.map(weekDay => {
-      return dateFromYearWeekDay(year, week, weekDay)
-    })
+    const weekDates = weekDays.map(weekDay => dateFromYearWeekDay(year, week, weekDay))
     return (
       <div className={styles.weekRow} key={`${year}-${week}`}>
         {weekDates.map(this.renderDay)}
@@ -58,7 +59,7 @@ export default class Calendar extends Component {
   renderCalendar = () => {
     const { year } = this.props
     const calendar = []
-    for (let i = 1; i < (365 / 7) * 3; i++) {
+    for (let i = 1; i < (365 / 7) * 3; i += 1) {
       calendar.push(
         this.renderWeek(year, i)
       )

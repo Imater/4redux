@@ -1,3 +1,4 @@
+// eslint-disable-next-line complexity
 const noun = (num = 0, words = ['рубль', 'рубля', 'рублей']) => {
   const number = Math.abs(num) % 100
   const numberDecimal = number % 10
