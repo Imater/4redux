@@ -6,13 +6,15 @@ import styles from './CalendarPage.scss'
 
 class CalendarPage extends PureComponent {
   static propTypes = {
-    holidays: pt.shape(pt.shape({
-      title: pt.string,
-      name: pt.string
-    })),
+    // eslint-disable-next-line react/forbid-prop-types
+    holidays: pt.object,
     country: pt.string,
     year: pt.string,
     error: pt.string
+  };
+
+  static defaultProps = {
+    holidays: {}
   };
 
   render() {

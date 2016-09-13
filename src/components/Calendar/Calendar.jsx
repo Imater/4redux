@@ -18,12 +18,8 @@ const printDate = weekDay => weekDay.format(weekDay.format('D') === '1' ? 'LL' :
 export default class Calendar extends Component {
   static propTypes = {
     mode: pt.oneOf(['default']),
-    holidays: pt.shape(
-      pt.shape({
-        title: pt.string,
-        name: pt.string
-      })
-    ),
+    // eslint-disable-next-line react/forbid-prop-types
+    holidays: pt.object,
     year: pt.string
   };
   static defaultProps = {
