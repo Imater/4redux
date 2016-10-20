@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes as pt } from 'react';
+import React, { PureComponent, PropTypes as pt } from 'react'
 import classes from './<%= pascalEntityName %>.scss'
 
 class <%= pascalEntityName %> extends PureComponent {

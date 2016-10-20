@@ -1,5 +1,5 @@
 import React from 'react'
-import storiesOf from '../../utils/storiesOf.js'
+import storiesOf from '../../utils/storiesOf'
 import Calendar from '.'
 
 const holidays = {

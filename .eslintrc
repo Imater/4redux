@@ -11,7 +11,6 @@
     "no-param-reassign": ["error", { "props": false }],
     "comma-dangle": [2, "never"],
     "arrow-parens": ["error", "as-needed"],
-    "class-methods-use-this": 1,
     "semi": [
       "error",
       "never"
@@ -36,7 +35,7 @@
       2,
       250
     ],
-    "react/prefer-stateless-function": 1,
+    "react/prefer-stateless-function": 0,
     "react/no-multi-comp": 0,
     "react/display-name": [
       0,

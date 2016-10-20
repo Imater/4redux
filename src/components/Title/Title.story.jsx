@@ -1,5 +1,5 @@
 import React from 'react'
-import storiesOf from '../../utils/storiesOf.js'
+import storiesOf from '../../utils/storiesOf'
 import Title from '.'
 
 const modes = ['h1', 'h2', 'h3', 'h4', 'h5']

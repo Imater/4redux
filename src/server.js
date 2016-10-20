@@ -92,10 +92,11 @@ app.use((req, res, next) => {
 
 app.use(Express.static(path.join(__dirname, '..', 'static')))
 
+const printError = error =>
+  error.code !== 'ECONNRESET' && console.error('proxy error', error) // eslint-disable-line no-console
+
 const errorHandler = (error, req, res) => {
-  if (error.code !== 'ECONNRESET') {
-    console.error('proxy error', error)
-  }
+  printError(error)
   if (!res.headersSent) {
     res.writeHead(500, { 'content-type': 'application/json' })
   }
@@ -143,6 +144,7 @@ server.on('upgrade', (req, socket, head) => {
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', errorHandler)
 
+// eslint-disable-next-line complexity
 app.use((req, res) => {
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
@@ -165,16 +167,17 @@ app.use((req, res) => {
   }
 
   if (__DISABLE_SSR__) {
-    console.info('render on client only')
+    console.info('render on client only') // eslint-disable-line no-console
     hydrateOnClient()
     return
   }
 
+  // eslint-disable-next-line complexity
   match({ history, routes: createRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (error) {
-      console.error('ROUTER ERROR:', pretty.render(error))
+      console.error('ROUTER ERROR:', pretty.render(error)) // eslint-disable-line no-console
       res.status(500)
       hydrateOnClient()
     } else if (renderProps) {
@@ -201,12 +204,12 @@ app.use((req, res) => {
 if (config.port) {
   server.listen(config.port, err => {
     if (err) {
-      console.error(err)
+      console.error(err) // eslint-disable-line no-console
     }
-    console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort)
-    console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port)
+    console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort)  // eslint-disable-line no-console
+    console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port) // eslint-disable-line no-console
   })
 } else {
-  console.error('==>     ERROR: No PORT environment variable has been specified')
+  console.error('==>     ERROR: No PORT environment variable has been specified') // eslint-disable-line no-console
 }
 

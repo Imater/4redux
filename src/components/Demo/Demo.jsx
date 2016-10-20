@@ -6,7 +6,7 @@ import Title from '../../components/Title'
 import styles from './Demo.styl'
 
 export default class Demo extends Component {
-  render() {
+  static render() {
     return (
       <div className={cx(styles.demo)}>
         <Helmet title='Demo' />

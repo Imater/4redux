@@ -1,6 +1,6 @@
 import NotFound from './components/NotFound'
 
-export default store => ({
+export default (/* store */) => ({
   path: '*',
   component: NotFound
 })
