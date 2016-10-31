@@ -32,11 +32,29 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
+      { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel'] },
       { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.styl$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!stylus?outputStyle=expanded&sourceMap=true&sourceMapContents=true') },
-      { test: /\.less$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap=true&sourceMapContents=true') },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true') },
+      {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style',
+          loader: 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!stylus?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+        })
+      },
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style',
+          loader: 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+        })
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style',
+          loader: 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+        })
+      },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
@@ -60,7 +78,7 @@ module.exports = {
       minimize: true
     }),
     // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
+    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

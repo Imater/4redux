@@ -1,0 +1,9 @@
+{
+  "sourceBase": "src",
+  "testBase": "src",
+  "smartPath": "containers",
+  "dumbPath": "components",
+  "routesPath": "routes",
+  "modulesPath": "modules",
+  "fileCasing": "default"
+}

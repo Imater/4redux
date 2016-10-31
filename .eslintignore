@@ -2,3 +2,4 @@ webpack/*
 karma.conf.js
 tests.webpack.js
 src/theme/*
+*/**/*.test.js

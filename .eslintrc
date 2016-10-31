@@ -1,7 +1,8 @@
 {
   "extends": "eslint-config-airbnb",
   "env": {
-    "es6": true
+    "es6": true,
+    "browser": true
   },
   "rules": {
     "complexity": [1, 2],
@@ -10,6 +11,10 @@
     "no-param-reassign": ["error", { "props": false }],
     "comma-dangle": [2, "never"],
     "arrow-parens": ["error", "as-needed"],
+    "semi": [
+      "error",
+      "never"
+    ],
     "no-underscore-dangle": [
       2,
       {
@@ -30,7 +35,7 @@
       2,
       250
     ],
-    "react/prefer-stateless-function": 1,
+    "react/prefer-stateless-function": 0,
     "react/no-multi-comp": 0,
     "react/display-name": [
       0,
@@ -38,6 +43,7 @@
         "ignoreTranspilerName": false
       }
     ],
+    "react/forbid-prop-types": 1,
     "react/jsx-no-bind": [1, {
       "ignoreRefs": true,
       "allowArrowFunctions": false,
@@ -51,7 +57,7 @@
     ],
     "react/jsx-pascal-case": 2,
     "react/jsx-handler-names": [
-      1,
+      2,
       {
         "eventHandlerPrefix": "handle",
         "eventHandlerPropPrefix": "on"
@@ -68,6 +74,7 @@
         "amd": false
       }
     ],
+    "import/no-extraneous-dependencies": 1,
     "import/no-duplicates": 2,
     "import/no-named-as-default": 2,
     "import/named": 2,

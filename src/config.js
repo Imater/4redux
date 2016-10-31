@@ -1,4 +1,4 @@
-require('babel-polyfill'); // eslint-disable-line import/no-require
+require('babel-polyfill') // eslint-disable-line import/no-require
 
 const environment = {
   development: {
@@ -7,7 +7,7 @@ const environment = {
   production: {
     isProduction: true
   }
-}[process.env.NODE_ENV || 'development'];
+}[process.env.NODE_ENV || 'development']
 
 export default Object.assign({
   host: process.env.HOST || 'localhost',
@@ -20,6 +20,13 @@ export default Object.assign({
   },
   authServer: 'http://connect.4redux.ru',
   apiServer: 'http://api.4redux.ru',
+  mongo: {
+    db: process.env.MONGO_DB || 'hb',
+    uri: process.env.MONGO_HOST || 'localhost',
+    schemaOptions: {
+      autoIndex: false
+    }
+  },
   app: {
     title: '4redux',
     description: 'redux boilerplate',
@@ -41,4 +48,4 @@ export default Object.assign({
       ]
     }
   }
-}, environment);
+}, environment)

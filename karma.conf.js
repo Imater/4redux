@@ -1,4 +1,4 @@
-var webpack = require('webpack');
+var webpack = require('webpack')
 
 module.exports = function (config) {
   config.set({
@@ -10,7 +10,6 @@ module.exports = function (config) {
     frameworks: ['mocha', 'chai', 'sinon'],
 
     files: [
-      './node_modules/phantomjs-polyfill/bind-polyfill.js',
       'tests.webpack.js'
     ],
 
@@ -27,7 +26,8 @@ module.exports = function (config) {
         }
       },
       reporters: [
-        { type: 'lcov', subdir: '.' },
+        { type: 'lcovonly', subdir: '.' },
+        { type: 'html', subdir: '.' },
         { type: 'json', subdir: '.' },
         { type: 'text-summary' }
       ]
@@ -91,5 +91,5 @@ module.exports = function (config) {
     webpackServer: {
       noInfo: true
     }
-  });
-};
+  })
+}
