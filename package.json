@@ -22,16 +22,18 @@
   ],
   "main": "bin/server.js",
   "scripts": {
-    "start": "concurrent --kill-others \"npm run start-prod\"",
+    "start": "concurrently --kill-others \"npm run start-prod\"",
     "start-prod": "better-npm-run start-prod",
-    "build": "concurrent --kill-others \"better-npm-run build\" \"npm run build-storybook\"",
+    "start-prod-api": "better-npm-run start-prod-api",
+    "start-dev-api": "better-npm-run start-dev-api",
+    "build": "concurrently --kill-others \"better-npm-run build\" \"npm run build-storybook\"",
     "lint": "eslint -c .eslintrc src api --ext js,jsx",
     "lint-fix": "eslint -c .eslintrc src api --ext js,jsx --fix",
     "start-dev": "better-npm-run start-dev",
     "start-dev-render-on-client": "better-npm-run start-dev-render-on-client",
     "watch-client": "better-npm-run watch-client",
-    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
-    "dev-render-on-client": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\" ",
+    "dev": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
+    "dev-fast": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\" \"npm run start-dev-api\"",
     "test": "better-npm-run test",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register --watch",
@@ -45,6 +47,22 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 8080
+      }
+    },
+    "start-prod-api": {
+      "command": "node --harmony ./bin/api.js",
+      "env": {
+        "NODE_PATH": "./api",
+        "NODE_ENV": "production",
+        "APIPORT": 3031
+      }
+    },
+    "start-dev-api": {
+      "command": "node --harmony ./bin/api.js",
+      "env": {
+        "NODE_PATH": "./api",
+        "NODE_ENV": "development",
+        "APIPORT": 3031
       }
     },
     "start-dev": {
@@ -62,7 +80,8 @@
         "NODE_PATH": "./src",
         "__DISABLE_SSR__": true,
         "NODE_ENV": "development",
-        "PORT": 3000
+        "PORT": 3000,
+        "APIPORT": 3031
       }
     },
     "watch-client": {
@@ -94,6 +113,7 @@
   "dependencies": {
     "@kadira/react-storybook-addon-info": "^3.2.1",
     "@kadira/storybook": "^2.13.0",
+    "async": "2.1.2",
     "axios": "^0.14.0",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.1",
@@ -111,6 +131,7 @@
     "classnames": "^2.2.3",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.2",
+    "enzyme": "^2.3.0",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "hoist-non-react-statics": "1.2.0",
@@ -119,6 +140,7 @@
     "less-loader": "^2.2.1",
     "method-override": "^2.3.5",
     "moment": "2.15.0",
+    "mongoose": "4.6.5",
     "piping": "^1.0.0-rc.3",
     "pretty-error": "^2.0.0",
     "promise-waterfall": "^0.1.0",
@@ -142,18 +164,18 @@
     "redux": "^3.5.2",
     "redux-act": "^1.0.0",
     "redux-async-connect": "^1.0.0-rc4",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
     "redux-form": "^6.0.2",
     "redux-loop": "^2.1.1",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
+    "sha1": "1.1.1",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
     "url-loader": "^0.5.7",
     "urlencode": "^1.1.0",
-    "redux-devtools": "^3.0.0-beta-3",
-    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
-    "redux-devtools-log-monitor": "^1.0.0-beta-3",
-    "enzyme": "^2.3.0",
     "warning": "^3.0.0"
   },
   "devDependencies": {
@@ -206,6 +228,7 @@
     "style-loader": "^0.13.1",
     "stylus": "^0.54.2",
     "stylus-loader": "^2.1.1",
+    "supertest": "2.0.1",
     "webpack": "^2.1.0-beta.22",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.5.0",

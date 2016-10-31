@@ -20,6 +20,13 @@ export default Object.assign({
   },
   authServer: 'http://connect.4redux.ru',
   apiServer: 'http://api.4redux.ru',
+  mongo: {
+    db: process.env.MONGO_DB || 'hb',
+    uri: process.env.MONGO_HOST || 'localhost',
+    schemaOptions: {
+      autoIndex: false
+    }
+  },
   app: {
     title: '4redux',
     description: 'redux boilerplate',
