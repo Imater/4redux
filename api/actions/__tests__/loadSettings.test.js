@@ -10,12 +10,4 @@ describe('loadSettings', () => {
         return done()
       })
   })
-  it('test get 404', (done) => {
-    request('http://localhost:3031')
-      .post('/loadSettings')
-      .end((err, res) => {
-        expect(res.status).to.equal(404)
-        return done()
-      })
-  })
 })

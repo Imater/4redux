@@ -58,7 +58,7 @@ const proxyUpload = httpProxy.createProxyServer({
 app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.use(session({ secret: 'keyboard relef', resave: false, saveUninitialized: false }))
+app.use(session({ secret: '', resave: false, saveUninitialized: false }))
 
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')))
 
@@ -127,11 +127,6 @@ app.use('/upload', (req, res) => {
   proxyUpload.web(req, res, { target: targetUrlUpload })
 })
 proxyUpload.on('error', errorHandler)
-
-// Proxy to Upload server
-app.use('/home/relefopt/beta.relefopt.ru/www/upload/', (req, res) => {
-  proxyUpload.web(req, res, { target: targetUrlUpload })
-})
 
 app.use('/ws', (req, res) => {
   proxy.web(req, res, { target: `${targetUrl}/ws` })

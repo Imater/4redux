@@ -25,7 +25,8 @@ app.use(compression())
 
 app.use(methodOverride())
 
-const processActions = (req, res) => {
+const processActions = (req, res, next) => {
+  console.info(req)
   const splittedUrlPath = req.url.split('?')[0].split('/').slice(1)
 
   const { action, params } = mapUrl(actions, splittedUrlPath)
