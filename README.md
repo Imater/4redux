@@ -8,6 +8,11 @@ npm run dev
 ```
 and open browser with displayed link
 
+You can use [yarn](https://github.com/yarnpkg/yarn) for install dependencies. Yarn several times faster than npm.
+```bash
+yarn install
+```
+
 For fast development and error handling, use render only on client:
 ```bash
 npm run dev-render-on-client
