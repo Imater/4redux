@@ -1,66 +1,46 @@
-require('babel-polyfill');
-
 // Webpack config for development
-var fs = require('fs');
-var path = require('path');
-var webpack = require('webpack');
-var assetsPath = path.resolve(__dirname, '../static/dist');
-var host = (process.env.HOST || 'localhost');
-var port = parseInt(process.env.PORT) + 1 || 3001;
+import 'babel-polyfill'
+import HappyPack from 'happypack'
+import fs from 'fs'
+import path from 'path'
+import webpack from 'webpack'
+import babelLoaderQuery from './babelLoaderQuery'
+
+var host = (process.env.HOST || 'localhost')
+var port = parseInt(process.env.PORT, 10) || 3001
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
-var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
+var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
+var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'))
 
-var babelrc = fs.readFileSync('./.babelrc');
-var babelrcObject = {};
+var babelrc = fs.readFileSync('./.babelrc')
+var babelrcObject = {}
 
 try {
-  babelrcObject = JSON.parse(babelrc);
+  babelrcObject = JSON.parse(babelrc)
 } catch (err) {
-  console.error('==>     ERROR: Error parsing your .babelrc.');
-  console.error(err);
+  console.error('==>     ERROR: Error parsing your .babelrc.')
+  console.error(err)
 }
 
+const plugins = [
+  new HappyPack({
+    loaders: [
+      'transform-loader?envify',
+      `babel?${JSON.stringify(babelLoaderQuery())}`,
+    ],
+  }),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.IgnorePlugin(/webpack-stats\.json$/),
+  new webpack.DefinePlugin({
+    __CLIENT__: true,
+    __SERVER__: false,
+    __DEVELOPMENT__: true,
+    __DEVTOOLS__: true
+  }),
+  webpackIsomorphicToolsPlugin.development()
+]
 
-var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
-
-// merge global and dev-only plugins
-var combinedPlugins = babelrcObject.plugins || [];
-combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
-
-var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {plugins: combinedPlugins});
-delete babelLoaderQuery.env;
-babelLoaderQuery.cacheDirectory = true;
-
-// Since we use .babelrc for client and server, and we don't want HMR enabled on the server, we have to add
-// the babel plugin react-transform-hmr manually here.
-
-// make sure react-transform is enabled
-babelLoaderQuery.plugins = babelLoaderQuery.plugins || [];
-var reactTransform = null;
-for (var i = 0; i < babelLoaderQuery.plugins.length; ++i) {
-  var plugin = babelLoaderQuery.plugins[i];
-  if (Array.isArray(plugin) && plugin[0] === 'react-transform') {
-    reactTransform = plugin;
-  }
-}
-
-if (!reactTransform) {
-  reactTransform = ['react-transform', {transforms: []}];
-  babelLoaderQuery.plugins.push(reactTransform);
-}
-
-if (!reactTransform[1] || !reactTransform[1].transforms) {
-  reactTransform[1] = Object.assign({}, reactTransform[1], {transforms: []});
-}
-
-// make sure react-transform-hmr is enabled
-reactTransform[1].transforms.push({
-  transform: 'react-transform-hmr',
-  imports: ['react'],
-  locals: ['module']
-});
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -74,14 +54,18 @@ module.exports = {
     ]
   },
   output: {
-    path: assetsPath,
+    path: path.resolve(__dirname, '../static/dist'),
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
     publicPath: 'http://' + host + ':' + port + '/dist/'
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel', query: babelLoaderQuery},
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        loader: 'happypack/loader',
+      },
       { test: /\.json$/, loader: 'json' },
       { test: /\.styl$/, exclude: /node_modules/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!stylus?outputStyle=expanded&sourceMap' },
       { test: /\.less$/, exclude: /node_modules/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap' },
@@ -107,16 +91,5 @@ module.exports = {
     ],
     extensions: ['', '.json', '.js', '.jsx']
   },
-  plugins: [
-    // hot reload
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.IgnorePlugin(/webpack-stats\.json$/),
-    new webpack.DefinePlugin({
-      __CLIENT__: true,
-      __SERVER__: false,
-      __DEVELOPMENT__: true,
-      __DEVTOOLS__: true
-    }),
-    webpackIsomorphicToolsPlugin.development()
-  ]
-};
+  plugins
+}

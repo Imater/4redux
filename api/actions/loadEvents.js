@@ -3,7 +3,7 @@ import Event from '../models/event'
 export default function loadEvents({ method, body, query }) {
   if (method === 'GET') {
     return new Promise((resolve, reject) => {
-      Event.find({}).exec((error, events) => {
+      Event.find({}).limit(1).exec((error, events) => {
         if (error) {
           return reject(error)
         }

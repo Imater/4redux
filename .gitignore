@@ -8,5 +8,5 @@ webpack-stats.json
 npm-debug.log
 generator-4redux/
 .DS_Store
-
+.happypack
 .tern-project
