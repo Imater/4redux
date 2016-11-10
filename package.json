@@ -140,6 +140,7 @@
     "method-override": "^2.3.5",
     "moment": "2.15.0",
     "mongoose": "4.6.5",
+    "piping": "^1.0.0-rc.4",
     "pretty-error": "^2.0.0",
     "promise-waterfall": "^0.1.0",
     "pure-render-decorator": "^1.1.1",
