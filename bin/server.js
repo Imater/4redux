@@ -42,7 +42,6 @@ if (__DEVELOPMENT__) {
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools')  // eslint-disable-line global-require
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))  // eslint-disable-line global-require
-  .development(__DEVELOPMENT__)
   .server(rootDir, () => {
     require('../src/server') // eslint-disable-line global-require
   })

@@ -1,10 +1,10 @@
-import fs from 'fs'
-import path from 'path'
+const fs = require('fs')
+const path = require('path')
 
 const babelrc = fs.readFileSync(path.join(__dirname, '../.babelrc'))
 let babelrcObject = {}
 
-export default function getBabelLoaderQuery() {
+module.exports = function getBabelLoaderQuery() {
   try {
     babelrcObject = JSON.parse(babelrc)
   } catch (err) {
@@ -22,11 +22,9 @@ export default function getBabelLoaderQuery() {
   let combinedPlugins = babelrcObject.plugins || []
   combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins)
 
-  const babelLoaderQuery = {
-    ...babelrcObjectDevelopment,
-    ...babelrcObject,
-    plugins: combinedPlugins,
-  }
+  var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {
+      plugins: combinedPlugins
+  });
 
   delete babelLoaderQuery.env
 

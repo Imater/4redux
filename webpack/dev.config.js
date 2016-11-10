@@ -1,10 +1,10 @@
 // Webpack config for development
-import 'babel-polyfill'
-import HappyPack from 'happypack'
-import fs from 'fs'
-import path from 'path'
-import webpack from 'webpack'
-import babelLoaderQuery from './babelLoaderQuery'
+require('babel-polyfill')
+const HappyPack = require('happypack')
+const fs = require('fs')
+const path = require('path')
+const webpack = require('webpack')
+const babelLoaderQuery = require('./babelLoaderQuery')
 
 var host = (process.env.HOST || 'localhost')
 var port = parseInt(process.env.PORT, 10) || 3001
@@ -40,7 +40,6 @@ const plugins = [
   }),
   webpackIsomorphicToolsPlugin.development()
 ]
-
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -78,7 +77,6 @@ module.exports = {
       { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
-  progress: false,
   resolve: {
     modules: [
       'node_modules'
@@ -86,9 +84,9 @@ module.exports = {
     // TODO eslint-plugin-resole-webpack not support webpack@2 `resolve.modules` path
     // https://github.com/benmosher/eslint-plugin-import/pull/319
     // Waiting for merge this PR or webpack-2 resolver will be implemented as plugin
-    modulesDirectories: [
-      'node_modules'
-    ],
+    // modulesDirectories: [
+    //   'node_modules'
+    // ],
     extensions: ['', '.json', '.js', '.jsx']
   },
   plugins
