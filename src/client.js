@@ -7,7 +7,7 @@ import React from 'react'
 import { render } from 'react-dom'
 // import io from 'socket.io-client'
 import { Provider } from 'react-redux'
-import { browserHistory, match } from 'react-router'
+import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { ReduxAsyncConnect } from 'redux-async-connect'
 import Perf from 'react-addons-perf'
@@ -37,14 +37,24 @@ global.Perf = Perf
 
 const getFilter = item => !item.deferred
 
-match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
-  render(
-    <Provider store={store} key='provider'>
-      <ReduxAsyncConnect {...renderProps} helpers={{}} filter={getFilter} />
-    </Provider>,
-    dest
-  )
-})
+const getReduxAsyncConnect = props =>
+  <ReduxAsyncConnect {...props} helpers={{}} filter={getFilter} />
+
+const component = (
+  <Router
+    render={getReduxAsyncConnect}
+    history={history}
+  >
+    {getRoutes(store)}
+  </Router>
+)
+
+render(
+  <Provider store={store} key='provider'>
+    {component}
+  </Provider>,
+  dest
+)
 
 if (process.env.NODE_ENV !== 'production') {
   if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
@@ -61,16 +71,15 @@ if (process.env.NODE_ENV !== 'production') {
 if (__DEVTOOLS__ && !window.devToolsExtension) {
   const DevTools = require('./containers/DevTools/DevTools') // eslint-disable-line global-require
 
-  match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
-    render(
-      <Provider store={store} key='provider'>
-        <div>
-          <ReduxAsyncConnect {...renderProps} helpers={{}} filter={item => !item.deferred} />
-          <DevTools />
-        </div>
-      </Provider>,
-      dest,
-      Perf.start
-    )
-  })
+  render(
+    <Provider store={store} key='provider'>
+      <div>
+        {component}
+        <DevTools />
+      </div>
+    </Provider>,
+    dest,
+    Perf.start
+  )
 }
+

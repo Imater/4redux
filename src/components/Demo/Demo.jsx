@@ -12,8 +12,8 @@ export default class Demo extends Component {
     return (
       <div className={cx(styles.demo)}>
         <Helmet title='Demo' />
-        <Link to='calendar'>
-          <Title>Календарь</Title>
+        <Link to={'calendar'}>
+          Календарь
         </Link>
       </div>
     )

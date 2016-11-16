@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as pt } from 'react'
+import { Link } from 'react-router'
 import cx from 'classnames'
 import moment from 'moment'
 
@@ -70,6 +71,9 @@ export default class Calendar extends Component {
           cx(styles[`mode_${mode}`], styles.calendarWrapper)
         }
       >
+        <Link to={'/'}>
+          Home
+        </Link>
         <div className={styles.calendar}>
           {this.renderCalendar()}
         </div>
