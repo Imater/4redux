@@ -33,7 +33,7 @@
     "start-dev-render-on-client": "better-npm-run start-dev-render-on-client",
     "watch-client": "better-npm-run watch-client",
     "dev": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
-    "dev-fast": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\" \"npm run start-dev-api\"",
+    "dev-fast": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\"",
     "test": "better-npm-run test",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*.test.js') --compilers js:babel-core/register --watch",

@@ -87,7 +87,7 @@ module.exports = {
     // modulesDirectories: [
     //   'node_modules'
     // ],
-    extensions: ['', '.json', '.js', '.jsx']
+    extensions: ['/', '.json', '.js', '.jsx']
   },
   plugins
 }
