@@ -2,13 +2,13 @@
 import CoreLayout from '../layout/CoreLayout'
 
 import CalendarPage from './CalendarPage'
-import Demo from '../components/Demo'
-import NotFound from '../routes/NotFound'
+import DemoPage from './DemoPage'
+import NotFound from './NotFound'
 
 const routes = store => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: Demo,
+  indexRoute: DemoPage(store),
   childRoutes: [
     CalendarPage(store),
     NotFound(store)
