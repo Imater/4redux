@@ -15,7 +15,6 @@ var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 module.exports = {
-  // devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
@@ -55,15 +54,11 @@ module.exports = {
           loader: 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
         })
       },
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "raw-loader" },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
       { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
-  progress: true,
   resolve: {
     modules: [
       'src',
@@ -73,12 +68,11 @@ module.exports = {
   },
   plugins: [
     new CleanPlugin([assetsPath], { root: projectRootPath }),
-    new webpack.ProgressPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
     // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin({ filename: '[name]-[chunkhash].css', allChunks: true }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

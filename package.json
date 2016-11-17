@@ -26,7 +26,7 @@
     "start-prod": "better-npm-run start-prod",
     "start-prod-api": "better-npm-run start-prod-api",
     "start-dev-api": "better-npm-run start-dev-api",
-    "build": "concurrently --kill-others \"better-npm-run build\" \"npm run build-storybook\"",
+    "build": "concurrently --kill-others \"better-npm-run build\"",
     "lint": "eslint -c .eslintrc src api --ext js,jsx",
     "lint-fix": "eslint -c .eslintrc src api --ext js,jsx --fix",
     "start-dev": "better-npm-run start-dev",
