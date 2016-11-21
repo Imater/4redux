@@ -1,14 +1,16 @@
-Big redux boilerplate template with isomporphic
+#4redux
+
+Isomporphic redux template
 
 ## install and development
-To start develop, run:
+To start developing, run:
 ```bash
 npm run install
 npm run dev
 ```
-and open browser with displayed link
+and open the displayed link in the browser.
 
-You can use [yarn](https://github.com/yarnpkg/yarn) for install dependencies. Yarn several times faster than npm.
+You can use [yarn](https://github.com/yarnpkg/yarn) to install dependencies. Yarn is several times faster than npm.
 ```bash
 yarn install
 ```
@@ -17,7 +19,6 @@ For fast development and error handling, use render only on client:
 ```bash
 npm run dev-render-on-client
 ```
-and open browser with displayed link
 
 Karma testing with watch:
 ```bash
