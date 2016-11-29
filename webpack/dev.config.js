@@ -61,6 +61,9 @@ module.exports = {
     publicPath: 'http://' + host + ':' + port + '/dist/'
   },
   module: {
+    noParse: [
+      /node_modules\/sinon\//
+    ],
     loaders: [
       {
         test: /\.js[x]?$/,
@@ -77,7 +80,15 @@ module.exports = {
       { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
+  externals: {
+    'jsdom': 'window',
+    'cheerio': 'window',
+    'react/lib/ExecutionEnvironment': ''
+  },
   resolve: {
+    alias: {
+      sinon: 'sinon/pkg/sinon'
+    },
     modules: [
       'node_modules',
       'src'

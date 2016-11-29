@@ -6,7 +6,4 @@ storiesOf('<%= pascalEntityName %>')
   .addWithInfo('Default without props', () => (
     <<%= pascalEntityName %> />
   ))
-  .addWithInfo('Default with children', () => (
-    <<%= pascalEntityName %>><%= pascalEntityName %></<%= pascalEntityName %>>
-  ))
 

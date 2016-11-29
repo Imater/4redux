@@ -1,6 +1,6 @@
 module.exports = {
   description() {
-    return 'Generates a dumb (aka Pure) component'
+    return 'Generates a dumb (aka Pure) component with dumbPath'
   },
   fileMapTokens() {
     return {

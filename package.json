@@ -122,11 +122,32 @@
       }
     },
     "test": {
-      "command": "karma start",
+      "command": "jest --coverage",
       "env": {
         "NODE_ENV": "test"
       }
     }
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "blueprints",
+      "api"
+    ],
+    "transform": {
+      ".*": "<rootDir>/webpack/hook-test.js"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/*.story.js",
+      "!**/*.mock.js",
+      "!**/index.js",
+      "!./webpack/**"
+    ]
   },
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.0.3",
@@ -135,6 +156,7 @@
     "async": "2.1.2",
     "axios": "0.14.0",
     "babel-core": "^6.5.2",
+    "babel-jest": "^17.0.2",
     "babel-loader": "^6.2.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -151,12 +173,14 @@
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.2",
     "css-loader": "^0.25.0",
-    "enzyme": "^2.3.0",
+    "enzyme": "^2.6.0",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "^12.0.0",
     "express": "^4.13.3",
     "hoist-non-react-statics": "1.2.0",
     "http-proxy": "^1.12.0",
+    "jest": "^17.0.3",
+    "karma-sinon": "^1.0.5",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "memoizee": "^0.4.1",
@@ -174,6 +198,7 @@
     "raw-loader": "^0.5.1",
     "react": "^15.4.0",
     "react-addons-perf": "^15.3.0",
+    "react-addons-test-utils": "^15.4.1",
     "react-cookie": "^0.4.6",
     "react-css-modules": "^3.7.6",
     "react-datepicker": "^0.34.0",
@@ -198,6 +223,7 @@
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
     "sha1": "1.1.1",
+    "sinon": "^1.17.6",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
     "tough-cookie": "^2.3.2",
@@ -253,7 +279,6 @@
     "redux-cli": "^1.8.0",
     "sass-loader": "^4.0.0",
     "script-loader": "^0.7.0",
-    "sinon": "^1.17.4",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.2",

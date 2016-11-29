@@ -4,10 +4,7 @@ import <%= pascalEntityName %> from '.'
 
 describe('@component <%= pascalEntityName %>', () => {
   it('should render normal without any props supplied', () => {
-    expect(shallow(<<%= pascalEntityName %> />)).to.have.length(1);
+    expect(shallow(<<%= pascalEntityName %> />)).not.toBeNull()
   })
-  it('should render normal with children content', () => {
-    expect(shallow(<<%= pascalEntityName %>><%= pascalEntityName %></<%= pascalEntityName %>>).children()).to.be.equal('<%= pascalEntityName %>');
-  })
-});
+})
 
