@@ -1,6 +1,7 @@
 require('babel-register');
 const commonConfig = require(`../webpack/dev.config`);
 const config = commonConfig;
+console.info(config.plugins)
 
 module.exports = (storybookBaseConfig) => {
   return Object.assign({}, storybookBaseConfig, {
@@ -10,7 +11,9 @@ module.exports = (storybookBaseConfig) => {
       modulesDirectories: config.resolve.modules,
       extensions: [''].concat(config.resolve.extensions)
     }),
-    plugins: process.env.NODE_ENV === 'development' ? storybookBaseConfig.plugins.concat(config.plugins[1]) : [config.plugins[1]],
+    plugins: process.env.NODE_ENV === 'development'
+      ? storybookBaseConfig.plugins.concat(config.plugins[0])
+      : [config.plugins[0]],
   });
 };
 

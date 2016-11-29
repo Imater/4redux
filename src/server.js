@@ -128,7 +128,7 @@ app.use((req, res) => {
   const history = syncHistoryWithStore(historyNotSync, store)
   const assets = webpackIsomorphicTools.assets()
 
-  assets.styles.z_datePicker = `${config.prefix}/DatePicker.css`
+  // assets.styles.z_datePicker = `${config.prefix}/DatePicker.css` to add css to index.html
 
   function hydrateOnClient() {
     res.send(`<!doctype html>\n
