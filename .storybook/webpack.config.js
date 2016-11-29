@@ -1,22 +1,16 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const config = require(`../webpack/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}.config`);
-const babelLoaderQuery = require('../webpack/babelLoaderQuery')
-
+require('babel-register');
+const commonConfig = require(`../webpack/dev.config`);
+const config = commonConfig;
 
 module.exports = (storybookBaseConfig) => {
   return Object.assign({}, storybookBaseConfig, {
-    module: {
-      loaders: [
-        {
-          test: /\.styl$/,
-          exclude: /node_modules/,
-          loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer!stylus?outputStyle=expanded&sourceMap'
-        },
-        { test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel', query: babelLoaderQuery() },
-        { test: /\.js?$/, exclude: /node_modules/, loader: 'babel', query: babelLoaderQuery() },
-        ...config.module.loaders.filter((item, index) => index !== 0 && index !== 2)
-      ]
-    },
-    resolve: config.resolve
-  })
-}
+    target: config.target,
+    module: config.module,
+    resolve: Object.assign({}, config.resolve, {
+      modulesDirectories: config.resolve.modules,
+      extensions: [''].concat(config.resolve.extensions)
+    }),
+    plugins: process.env.NODE_ENV === 'development' ? storybookBaseConfig.plugins.concat(config.plugins[1]) : [config.plugins[1]],
+  });
+};
+

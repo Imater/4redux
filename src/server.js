@@ -12,7 +12,7 @@ import httpProxy from 'http-proxy'
 import cookieParser from 'cookie-parser'
 import reactCookie from 'react-cookie'
 import { match } from 'react-router'
-import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
+import { ReduxAsyncConnect, loadOnServer } from 'redux-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createHistory from 'react-router/lib/createMemoryHistory'
 import { Provider } from 'react-redux'
@@ -27,29 +27,15 @@ const app = new Express()
 const server = new http.Server(app)
 const proxy = httpProxy.createProxyServer({
   target: targetUrl,
+  auth: 'dev.moygrafik.ru:JndO3jdZ',
   xfwd: false,
   ws: true
 })
 
-const authUrl = `${config.authServer}`
-const targetUrlAuth = `${authUrl}/oauth`
-const proxyAuth = httpProxy.createProxyServer({
-  target: targetUrlAuth,
-  xfwd: false,
-  changeOrigin: true
-})
-
-const apiUrl = `${config.apiServer}`
-const targetUrlApi = `${apiUrl}/v1`
+const targetUrlApi = `http://${config.apiRemoteServer}:${config.apiRemoteServerPort}/api`
 const proxyApi = httpProxy.createProxyServer({
   target: targetUrlApi,
-  xfwd: false,
-  changeOrigin: true
-})
-
-const targetUrlUpload = `${apiUrl}/upload`
-const proxyUpload = httpProxy.createProxyServer({
-  target: targetUrlUpload,
+  auth: 'dev.moygrafik.ru:JndO3jdZ',
   xfwd: false,
   changeOrigin: true
 })
@@ -58,7 +44,7 @@ app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.json())
 
-app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, '..', 'static', 'image', 'favicon.gif')))
 
 // Add headers
 app.use((req, res, next) => {
@@ -90,6 +76,10 @@ app.use((req, res, next) => {
 
 app.use(Express.static(path.join(__dirname, '..', 'static')))
 
+if (config.prefix) {
+  app.use(config.prefix, Express.static(path.join(__dirname, '..', 'static')))
+}
+
 const printError = error =>
   error.code !== 'ECONNRESET' && console.error('proxy error', error) // eslint-disable-line no-console
 
@@ -102,29 +92,11 @@ const errorHandler = (error, req, res) => {
   res.end(JSON.stringify({ error: 'proxy_error', reason: error.message }))
 }
 
-// Proxy to oauth API server
-app.use('/oauth', (req, res) => {
-  proxyAuth.web(req, res, { target: targetUrlAuth })
-})
-proxyAuth.on('error', errorHandler)
-
 // Proxy to API server
-app.use('/v1', (req, res) => {
+app.use('/api', (req, res) => {
   proxyApi.web(req, res, { target: targetUrlApi })
 })
 proxyApi.on('error', errorHandler)
-
-// Proxy to API server
-app.use('/api', (req, res) => {
-  proxy.web(req, res, { target: targetUrl })
-})
-proxy.on('error', errorHandler)
-
-// Proxy to Upload server
-app.use('/upload', (req, res) => {
-  proxyUpload.web(req, res, { target: targetUrlUpload })
-})
-proxyUpload.on('error', errorHandler)
 
 app.use('/ws', (req, res) => {
   proxy.web(req, res, { target: `${targetUrl}/ws` })
@@ -154,13 +126,17 @@ app.use((req, res) => {
     userAgent: req.headers['user-agent']
   })
   const history = syncHistoryWithStore(historyNotSync, store)
+  const assets = webpackIsomorphicTools.assets()
+
+  assets.styles.z_datePicker = `${config.prefix}/DatePicker.css`
+
   function hydrateOnClient() {
     res.send(`<!doctype html>\n
-      ${renderToStaticMarkup(<Html assets={webpackIsomorphicTools.assets()} store={store} />)}`)
+      ${renderToStaticMarkup(<Html assets={assets} store={store} />)}`)
   }
 
   if (__DISABLE_SSR__) {
-    console.info('render on client only') // eslint-disable-line no-console
+    console.log('render on client only') // eslint-disable-line no-console
     hydrateOnClient()
     return
   }
@@ -186,7 +162,7 @@ app.use((req, res) => {
         global.navigator = { userAgent: req.headers['user-agent'] }
 
         res.send(`<!doctype html>\n
-          ${renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`)
+          ${renderToString(<Html assets={assets} component={component} store={store} />)}`)
       })
     } else {
       res.status(404).send('Not found')
@@ -199,8 +175,8 @@ if (config.port) {
     if (err) {
       console.error(err) // eslint-disable-line no-console
     }
-    console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort)  // eslint-disable-line no-console
-    console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port) // eslint-disable-line no-console
+    console.log('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort)  // eslint-disable-line no-console
+    console.log('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port) // eslint-disable-line no-console
   })
 } else {
   console.error('==>     ERROR: No PORT environment variable has been specified') // eslint-disable-line no-console

@@ -61,8 +61,8 @@ if (config.apiPort) {
     if (err) {
       console.error(err)
     }
-    console.info('----\n==> 🌎  API is running on port %s', config.apiPort)
-    console.info('==> 💻  Send requests to http://%s:%s', config.apiHost, config.apiPort)
+    console.log('----\n==> 🌎  API is running on port %s', config.apiPort)
+    console.log('==> 💻  Send requests to http://%s:%s', config.apiHost, config.apiPort)
   })
 
   io.on('connection', socket => {

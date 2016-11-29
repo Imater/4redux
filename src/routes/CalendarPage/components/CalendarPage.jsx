@@ -1,16 +1,12 @@
 import React, { PureComponent, PropTypes as pt } from 'react'
 import Helmet from 'react-helmet'
-import Calendar from '../../../components/Calendar'
 
 import styles from './CalendarPage.scss'
 
 class CalendarPage extends PureComponent {
   static propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
-    holidays: pt.object,
-    country: pt.string,
-    year: pt.string,
-    error: pt.string
+    data: pt.object
   };
 
   static defaultProps = {
@@ -22,13 +18,9 @@ class CalendarPage extends PureComponent {
 
     return (
       <div className={styles.demo}>
-        <Helmet title='Calendar' />
+        <Helmet title='Calendar demo page' />
         { error && <b>{error}</b> }
-        <Calendar
-          holidays={holidays}
-          country={country}
-          year={year}
-        />
+        <b>calendar demo</b>
       </div>
     )
   }

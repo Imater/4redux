@@ -1,7 +1,5 @@
 import { configure } from '@kadira/storybook';
 
-const req = require.context('../src/components/', true, /story\.jsx$/);
+const req = require.context('../src/components/', true, /story\.js/);
 
-configure(function () {
-	req.keys().forEach(req);
-}, module);
+configure(() => req.keys().forEach(req), module);

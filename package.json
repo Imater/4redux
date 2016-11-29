@@ -1,12 +1,12 @@
 {
-  "name": "4redux",
-  "description": "4redux project template",
+  "name": "mg",
+  "description": "MoyGrafik",
   "author": "CSSSR <sales@csssr.io> (https://github.com/CSSSR)",
   "private": true,
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Imater/4redux"
+    "url": "https://github.com/CSSSR/mg"
   },
   "homepage": "",
   "keywords": [
@@ -24,6 +24,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm run start-prod\"",
     "start-prod": "better-npm-run start-prod",
+    "start-prod-mg": "better-npm-run start-prod-mg",
     "start-prod-api": "better-npm-run start-prod-api",
     "start-dev-api": "better-npm-run start-dev-api",
     "build": "concurrently --kill-others \"better-npm-run build\"",
@@ -46,15 +47,28 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "PORT": 8080
+        "PORT": 58695,
+        "APIPORT": 34032
+      }
+    },
+    "start-prod-mg": {
+      "command": "node --harmony ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "production",
+        "__DISABLE_SSR__": true,
+        "PREFIX": "/web",
+        "PORT": 33068,
+        "APIPORT": 34032
       }
     },
     "start-prod-api": {
-      "command": "node --harmony ./bin/api.js",
+      "command": "node $NODE_DEBUG_OPTION --harmony ./bin/api.js",
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
-        "APIPORT": 3031
+        "PORT": 58695,
+        "APIPORT": 34032
       }
     },
     "start-dev-api": {
@@ -66,20 +80,23 @@
       }
     },
     "start-dev": {
-      "command": "node ./bin/server.js",
+      "command": "node $NODE_DEBUG_OPTION ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
+        "PREFIX": "",
         "NODE_ENV": "development",
         "PORT": 3000,
         "APIPORT": 3031
       }
     },
     "start-dev-render-on-client": {
-      "command": "node ./bin/server.js",
+      "command": "node $NODE_DEBUG_OPTION ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
         "__DISABLE_SSR__": true,
         "NODE_ENV": "development",
+        "HOST": "localhost",
+        "APIHOST": "localhost",
         "PORT": 3000,
         "APIPORT": 3031
       }
@@ -94,7 +111,8 @@
     "build": {
       "command": "webpack --color --display-error-details --config webpack/prod.config.js",
       "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "PREFIX": "/web"
       }
     },
     "build-storybook": {
@@ -111,11 +129,11 @@
     }
   },
   "dependencies": {
-    "@kadira/react-storybook-addon-info": "^3.3.0",
-    "@kadira/storybook": "^2.29.5",
-    "@kadira/storybook-addons": "^1.6.1",
+    "@3846masa/axios-cookiejar-support": "^0.0.3",
+    "@kadira/react-storybook-addon-info": "^3.2.1",
+    "@kadira/storybook": "^2.13.0",
     "async": "2.1.2",
-    "axios": "^0.14.0",
+    "axios": "0.14.0",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.1",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -129,20 +147,24 @@
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "body-parser": "^1.14.1",
-    "classnames": "^2.2.3",
+    "classnames": "^2.2.5",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.2",
+    "css-loader": "^0.25.0",
     "enzyme": "^2.3.0",
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb": "^12.0.0",
     "express": "^4.13.3",
-    "getstorybook": "^1.6.1",
-    "happypack": "^2.2.1",
     "hoist-non-react-statics": "1.2.0",
     "http-proxy": "^1.12.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "memoizee": "^0.4.1",
     "method-override": "^2.3.5",
     "moment": "2.15.0",
     "mongoose": "4.6.5",
+    "mongoose-findorcreate": "^0.1.2",
+    "net": "^1.0.2",
     "piping": "^1.0.0-rc.4",
     "pretty-error": "^2.0.0",
     "promise-waterfall": "^0.1.0",
@@ -150,22 +172,24 @@
     "querystring": "^0.2.0",
     "ramda": "^0.22.0",
     "raw-loader": "^0.5.1",
-    "react": "^15.3.0",
+    "react": "^15.4.0",
     "react-addons-perf": "^15.3.0",
     "react-cookie": "^0.4.6",
     "react-css-modules": "^3.7.6",
+    "react-datepicker": "^0.34.0",
     "react-dom": "^15.3.0",
     "react-helmet": "^3.1.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
     "react-router": "^3.0.0",
     "react-router-bootstrap": "^0.23.1",
-    "react-router-redux": "^4.0.5",
+    "react-router-redux": "4.0.6",
     "react-storybook-addon-backgrounds": "0.0.3",
+    "react-transform-hmr": "^1.0.4",
     "recompose": "0.20.2",
     "redux": "^3.5.2",
     "redux-act": "^1.0.0",
-    "redux-async-connect": "^1.0.0-rc4",
+    "redux-connect": "^4.0.2",
     "redux-devtools": "^3.0.0-beta-3",
     "redux-devtools-dock-monitor": "^1.0.0-beta-3",
     "redux-devtools-log-monitor": "^1.0.0-beta-3",
@@ -176,10 +200,11 @@
     "sha1": "1.1.1",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
-    "storybook": "^0.0.0",
+    "tough-cookie": "^2.3.2",
     "url-loader": "^0.5.7",
     "urlencode": "^1.1.0",
-    "warning": "^3.0.0"
+    "warning": "^3.0.0",
+    "webpack-isomorphic-tools": "^2.6.4"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -193,8 +218,6 @@
     "concurrently": "^2.2.0",
     "css-loader": "^0.25.0",
     "envify": "3.4.1",
-    "eslint": "3.5.0",
-    "eslint-config-airbnb": "11.0.0",
     "eslint-import-resolver-webpack": "^0.5.1",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-import": "^1.3.0",
@@ -202,6 +225,7 @@
     "eslint-plugin-react": "^6.0.0",
     "extract-text-webpack-plugin": "2.0.0-beta.3",
     "file-loader": "^0.9.0",
+    "flow-bin": "0.34.0",
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
     "happypack": "2.2.1",
@@ -223,11 +247,12 @@
     "phantomjs-prebuilt": "2.1.12",
     "react-a11y": "^0.3.3",
     "react-addons-test-utils": "^15.3.0",
+    "react-polyfill": "0.0.2",
     "react-transform-catch-errors": "^1.0.0",
-    "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
     "redux-cli": "^1.8.0",
     "sass-loader": "^4.0.0",
+    "script-loader": "^0.7.0",
     "sinon": "^1.17.4",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.1",
@@ -238,8 +263,7 @@
     "transform-loader": "0.2.3",
     "webpack": "^2.1.0-beta.22",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.5.0",
-    "webpack-isomorphic-tools": "^2.5.8"
+    "webpack-hot-middleware": "^2.5.0"
   },
   "engines": {
     "node": "5.6.0"

@@ -2,9 +2,9 @@ import { createReducer, createAction } from 'redux-act'
 import { loop, Effects } from 'redux-loop'
 import client from '../../../helpers/apiClient'
 
-export const fetch = createAction('4redux/holidays/getHolidays')
-export const fetchSuccess = createAction('4redux/holidays/getHolidaysSuccess')
-export const fetchFailure = createAction('4redux/holidays/getHolidaysFailure')
+export const fetch = createAction('mg/holidays/getHolidays')
+export const fetchSuccess = createAction('mg/holidays/getHolidaysSuccess')
+export const fetchFailure = createAction('mg/holidays/getHolidaysFailure')
 
 const initialState = {
   isLoaded: false,

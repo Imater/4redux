@@ -5,7 +5,7 @@
     "browser": true
   },
   "rules": {
-    "complexity": [1, 2],
+    "complexity": [1, 4],
     "no-unused-vars": 1,
     "no-case-declarations": 0,
     "no-param-reassign": ["error", { "props": false }],
@@ -43,7 +43,7 @@
         "ignoreTranspilerName": false
       }
     ],
-    "react/forbid-prop-types": 1,
+    "react/forbid-prop-types": 0,
     "react/jsx-no-bind": [1, {
       "ignoreRefs": true,
       "allowArrowFunctions": false,

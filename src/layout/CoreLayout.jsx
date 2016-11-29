@@ -1,5 +1,4 @@
 import React, { Component, PropTypes as pt } from 'react'
-import { Link } from 'react-router'
 import Helmet from 'react-helmet'
 import config from '../config'
 
@@ -11,15 +10,11 @@ class CoreLayout extends Component {
   }
 
   render() {
-    console.info(children)
     const { children } = this.props
 
     return (
       <div className={styles.root}>
         <Helmet {...config.app.head} />
-        <Link to={'/calendar'}>
-          Календарь
-        </Link>
         {children}
       </div>
     )

@@ -1,6 +1,7 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import { install } from 'redux-loop'
+import updateData from '../helpers/updateData'
 import makeReducers from './reducers'
 
 // eslint-disable-next-line complexity
@@ -40,6 +41,8 @@ const createStore = (history, data) => {
       store.replaceReducer(reducers(store.asyncReducers))
     })
   }
+
+  updateData.setStore(store)
 
   return store
 }

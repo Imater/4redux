@@ -1,6 +1,7 @@
 /* eslint-disable global-require, react/no-danger, react/forbid-prop-types */
 import React, { PropTypes } from 'react'
 import { renderToString } from 'react-dom/server'
+import config from '../config'
 import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'
 
@@ -26,13 +27,15 @@ const Html = ({ assets, component, store }) => {
         {head.link.toComponent()}
         {head.script.toComponent()}
 
-        <link rel='shortcut icon' href='/favicon.ico' />
+        <link rel='shortcut icon' href={`${config.prefix}/image/favicon.gif`} />
 
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta httpEquiv='X-UA-Compatible' content='IE=9' />
 
         {/* Fonts */}
         {/* styles (will be present only in production with webpack extract text plugin) */}
-        {Object.keys(assets.styles).map((style, key) =>
+        {Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{ __html: require('../theme/font-awesome.config.js') }} /> : null}
+        {Object.keys(assets.styles).sort((a, b) => a < b ? 1 : -1).map((style, key) =>
           <link
             href={assets.styles[style]}
             key={key}

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { asyncConnect } from 'redux-async-connect'
+import { asyncConnect } from 'redux-connect'
 
 import { fetch } from '../modules/holidays'
 import CalendarPage from '../components/CalendarPage'
@@ -10,20 +10,14 @@ const mapActionCreators = {
 
 const mapStateToProps =
   ({
-    holidays: { data, error },
-    routing: { locationBeforeTransitions: { query: { country, year } } }
+    demoStore: { data }
   }) => ({
-    holidays: data,
-    country,
-    year,
-    error
+    data
   })
 
 export default asyncConnect([{
-  promise: ({ store: { dispatch }, store }) => {
-    const { country, year } = store.getState().routing.locationBeforeTransitions.query
-    return new Promise(resolve => {
-      dispatch(fetch({ country, year })).then(resolve)
-    })
+  promise: ({ store: { dispatch, getState } }) => {
+    const { demoStore } = getState()
+    return new Promise(resolve => resolve())
   }
 }])(connect(mapStateToProps, mapActionCreators)(CalendarPage))

@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import styles from './Title.styl'
 
-export default class Title extends Component {
+export default class Demo extends Component {
   static propTypes = {
     mode: pt.oneOf(['h1', 'h2', 'h3', 'h4', 'h5']),
     isOneLine: pt.bool,

@@ -29,3 +29,14 @@ Open storybook on http://localhost:9001/ after starting:
 npm run storybook
 ```
 
+## production
+
+```
+yarn install
+npm run build
+npm start
+```
+
+Порты и хосты можно поменять переменными окружения, имена которых видны в packages.json в соответствующих командах npm start
+
+

@@ -14,32 +14,23 @@ export default Object.assign({
   port: process.env.PORT,
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
-  apiAuth: {
-    client_id: 'node_thing',
-    client_secret: 'e4c25cec64c71d10001ae4c768fb9fc76c5191be'
-  },
-  authServer: 'http://connect.4redux.ru',
-  apiServer: 'http://api.4redux.ru',
-  mongo: {
-    db: process.env.MONGO_DB || 'hb',
-    uri: process.env.MONGO_HOST || 'localhost',
-    schemaOptions: {
-      autoIndex: false
-    }
-  },
+  // apiRemoteServer: process.env.API_REMOTE_SERVER || 'private-19210-moygrafik.apiary-mock.com',
+  apiRemoteServer: process.env.API_REMOTE_SERVER || 'dev.moygrafik.ru',
+  apiRemoteServerPort: process.env.API_REMOTE_SERVER_PORT || '80',
+  prefix: environment.isProduction ? '/web' : '',
   app: {
-    title: '4redux',
-    description: 'redux boilerplate',
+    title: 'mg',
+    description: 'moyGrafik',
     head: {
       titleTemplate: '%s',
       meta: [
-        { name: 'description', content: 'Big distribution store' },
+        { name: 'description', content: 'moyGrafik' },
         { charset: 'utf-8' },
-        { property: 'og:site_name', content: 'Redux template' },
-        { property: 'og:image', content: 'http://4redux.ru/images/logo.png' },
+        { property: 'og:site_name', content: 'MyGrafik' },
+        { property: 'og:image', content: 'http://stat.moygrafik.ru/bundles/app/static/images/logo.png' },
         { property: 'og:locale', content: 'ru_RU' },
-        { property: 'og:title', content: '4redux' },
-        { property: 'og:description', content: 'Big distribution store' },
+        { property: 'og:title', content: 'Mg' },
+        { property: 'og:description', content: 'MyGrafik' },
         { property: 'og:card', content: 'Gaze from your telescope' },
         { property: 'og:site', content: '@imater' },
         { property: 'og:creator', content: '@imater' },

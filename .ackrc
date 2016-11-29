@@ -1,6 +1,13 @@
 --ignore-dir=build
 --ignore-dir=assets
 --ignore-dir=node_modules
+--ignore-dir=.happypack
+--ignore-dir=.idea
+--ignore-dir=.storybook
+--ignore-dir=.git
+--ignore-dir=blueprints
+--ignore-dir=coverage
+--ignore-dir=static
 --ignore-dir=dist
 --ignore-dir=upload
 --ignore-dir=db

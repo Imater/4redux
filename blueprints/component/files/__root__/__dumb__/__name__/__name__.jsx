@@ -1,15 +1,16 @@
-import React, { PureComponent, PropTypes as pt } from 'react'
-import classes from './<%= pascalEntityName %>.scss'
+import React, { Component, PropTypes as pt } from 'react'
+import pureRender from 'pure-render-decorator'
+import styles from './<%= pascalEntityName %>.styl'
 
-class <%= pascalEntityName %> extends PureComponent {
+@pureRender
+class <%= pascalEntityName %> extends Component {
 
   static propTypes = {
-
   }
 
   render() {
     return (
-      <div className={classes['<%= pascalEntityName %>']}>
+      <div className={styles.<%= pascalEntityName %>}>
         <h1><%= pascalEntityName %></h1>
       </div>
     )
