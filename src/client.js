@@ -41,7 +41,7 @@ const getReduxAsyncConnect = renderProps =>
     <ReduxAsyncConnect {...renderProps} />
   </div>
 
-match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
+match({ history, routes: getRoutes(store) }, (/* error, redirectLocation, renderProps */) => {
   render(
     <Provider store={store} key='provider'>
       <Router

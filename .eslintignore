@@ -1,4 +1,5 @@
 webpack/*
+api/*
 karma.conf.js
 tests.webpack.js
 src/theme/*

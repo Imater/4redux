@@ -6,7 +6,7 @@ import styles from './CalendarPage.scss'
 class CalendarPage extends PureComponent {
   static propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
-    data: pt.object
+    error: pt.string
   };
 
   static defaultProps = {
@@ -14,7 +14,7 @@ class CalendarPage extends PureComponent {
   };
 
   render() {
-    const { holidays, country, year, error } = this.props
+    const { error } = this.props
 
     return (
       <div className={styles.demo}>

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { asyncConnect } from 'redux-connect'
 
-import { fetch } from '../modules/holidays'
 import CalendarPage from '../components/CalendarPage'
 
 const mapActionCreators = {
@@ -16,8 +15,5 @@ const mapStateToProps =
   })
 
 export default asyncConnect([{
-  promise: ({ store: { dispatch, getState } }) => {
-    const { demoStore } = getState()
-    return new Promise(resolve => resolve())
-  }
+  promise: (/* { store: { dispatch, getState } } */) => new Promise(resolve => resolve())
 }])(connect(mapStateToProps, mapActionCreators)(CalendarPage))

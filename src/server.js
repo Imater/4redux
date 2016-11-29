@@ -44,7 +44,7 @@ app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.json())
 
-app.use(favicon(path.join(__dirname, '..', 'static', 'image', 'favicon.gif')))
+app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')))
 
 // Add headers
 app.use((req, res, next) => {

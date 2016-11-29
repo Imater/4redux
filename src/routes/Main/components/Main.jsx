@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
+import classNames from 'classnames/bind'
 import styles from './Main.styl'
 
 const cx = classNames.bind(styles)
@@ -14,9 +14,9 @@ export default class Checkboxes extends Component {
   render() {
     return (
       <div
-        className={styles.main}
+        className={cx('main')}
       >
-        Redux/react boilerplate
+        Redux/react boilerplate!
       </div>
     )
   }
