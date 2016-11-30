@@ -22,7 +22,7 @@
   ],
   "main": "bin/server.js",
   "scripts": {
-    "start": "npm run dev-fast",
+    "start": "concurrently --kill-others \"npm run watch-client\" \"better-npm-run start-dev-render-on-client\"",
     "start-prod": "better-npm-run start-prod",
     "start-prod-mg": "better-npm-run start-prod-mg",
     "start-prod-api": "better-npm-run start-prod-api",
@@ -33,7 +33,7 @@
     "start-dev": "better-npm-run start-dev",
     "watch-client": "better-npm-run watch-client",
     "dev": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
-    "dev-fast": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev-render-on-client\"",
+    "dev-fast": "concurrently --kill-others \"npm run watch-client\" \"better-npm-run start-dev-render-on-client\"",
     "test": "better-npm-run test",
     "test:watch": "better-npm-run test:watch",
     "storybook": "start-storybook -p 9001",
