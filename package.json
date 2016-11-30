@@ -61,7 +61,7 @@
       }
     },
     "start-prod-api": {
-      "command": "node $NODE_DEBUG_OPTION --harmony ./bin/api.js",
+      "command": "node --harmony ./bin/api.js",
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
@@ -78,7 +78,7 @@
       }
     },
     "start-dev": {
-      "command": "node $NODE_DEBUG_OPTION ./bin/server.js",
+      "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
         "PREFIX": "",
@@ -88,7 +88,7 @@
       }
     },
     "start-dev-render-on-client": {
-      "command": "node $NODE_DEBUG_OPTION ./bin/server.js",
+      "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
         "__DISABLE_SSR__": true,
