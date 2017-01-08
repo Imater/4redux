@@ -97,5 +97,23 @@ describe('@List utils', () => {
     const count = () => { bufferCount += 1; return bufferCount }
     R.forEach(count, items)
     expect(bufferCount).toEqual(4)
+
+    bufferCount = 0
+    items.forEach(count) // Array.forEach не проходит по undefined в массиве
+    expect(bufferCount).toEqual(0)
+  })
+  test('fromPairs - массив из массивов пар [ключ, значение] – превращает в объект', () => {
+    expect(R.fromPairs([['id', 1], ['title', 2]])).toEqual({ id: 1, title: 2 })
+  })
+  test('groupBy - группирует по текстовому ключу, который возвращает функция', () => {
+    const items = [{ tag: 'red' }, {tag: 'green'}, { tag: 'red' }, {}]
+    expect(R.groupBy(item => item.tag, items)).toEqual({
+      green: [{ tag: 'green' }],
+      red: [{ tag: 'red' }, { tag: 'red' }],
+      'undefined': [{}]
+    })
+  })
+  test('groupWith - разбивает массив на подмассивы, где соседние элементы удовлетворяют результату функции сравнения', () => {
+    expect(R.groupWith(R.equals, ['a', 'a', 'b', 'b', 'c'])).toEqual([['a', 'a'], ['b', 'b'], ['c']])
   })
 })
